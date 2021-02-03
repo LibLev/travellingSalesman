@@ -25,7 +25,7 @@ public class Salesman {
     private String password;
 
     @NotEmpty
-    private String firstname, lastname, middleName, gender, nationality, country, county, city, address;
+    private String firstname, lastname, middleName, gender, email, nationality, country, county, city, address;
 
     @NotNull
     private int postCode, houseNumber, phoneNumber;
