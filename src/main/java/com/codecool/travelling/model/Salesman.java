@@ -28,7 +28,7 @@ public class Salesman {
     private String firstname, lastname, middleName, gender, email, nationality, country, county, city, address;
 
     @NotNull
-    private int postCode, houseNumber, phoneNumber;
+    private int postcode, houseNumber, phoneNumber;
 
     @NotNull
     @DateTimeFormat(pattern = "dd-mm-yyyy")

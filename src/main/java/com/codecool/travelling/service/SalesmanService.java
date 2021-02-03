@@ -36,12 +36,12 @@ public class SalesmanService {
                 .country(data.get("country"))
                 .county(data.get("county"))
                 .city(data.get("city"))
-                .postCode(Integer.parseInt(data.get("postCode")))
+                .postcode(Integer.parseInt(data.get("postcode")))
                 .address(data.get("address"))
                 .houseNumber(Integer.parseInt(data.get("houseNumber")))
                 .drivingLicense(Boolean.parseBoolean(data.get("drivingLicense")))
                 .password(passwordEncoder.encode(data.get("password")))
-                .roles(Collections.singleton("ROLE_USER"))
+                .roles(Collections.singleton("ROLE_SALESMAN"))
                 .build();
         salesmanRepository.save(newRegistration);
     }
