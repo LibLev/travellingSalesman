@@ -37,6 +37,7 @@ public class Salesman {
     private boolean drivingLicense;
 
 /*    private Map<String, String> degreeWithSchool = new HashMap<>();
+
     private Map<String, String> oldPositionsWithCompany = new HashMap<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
