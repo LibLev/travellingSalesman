@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.util.*;
 
 @Entity
 @Data
@@ -32,9 +32,15 @@ public class Company {
     @NotNull
     private int houseNumber, postcode, phoneNumber;
 
+    @NotNull
+    @DateTimeFormat(pattern = "dd-mm-yyyy")
+    private LocalDate dateOfFoundation;
+
     // roles of the user (ADMIN, USER,..)
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private Set<String> roles = new HashSet<>();
 
+    @OneToMany
+    private List<Position> positions = new ArrayList<>();
 }
