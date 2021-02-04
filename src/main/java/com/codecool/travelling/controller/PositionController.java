@@ -17,11 +17,11 @@ import java.util.Map;
 @CrossOrigin
 @RestController
 @AllArgsConstructor
-public class CompanyController {
+public class PositionController {
 
     private PositionService positionService;
 
-    @PostMapping("/position-creation")
+    @PostMapping("/add-position")
     public void createNewPosition(@RequestBody Map<String, String> data){
         positionService.createNewPosition(data);
 
