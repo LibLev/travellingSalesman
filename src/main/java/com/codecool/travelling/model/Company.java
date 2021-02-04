@@ -22,6 +22,9 @@ public class Company {
     private UUID id;
 
     @NotEmpty
+    private String username;
+
+    @NotEmpty
     private String password;
 
     @NotEmpty

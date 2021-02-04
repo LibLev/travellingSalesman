@@ -25,6 +25,7 @@ public class SalesmanService {
 
     public void createNewSalesman(Map<String, String> data) {
         Salesman newRegistration = Salesman.builder()
+                .username(data.get("username"))
                 .firstname(data.get("firstname"))
                 .lastname(data.get("lastname"))
                 .middleName(data.get("middleName"))
@@ -41,7 +42,7 @@ public class SalesmanService {
                 .houseNumber(Integer.parseInt(data.get("houseNumber")))
                 .drivingLicense(Boolean.parseBoolean(data.get("drivingLicense")))
                 .password(passwordEncoder.encode(data.get("password")))
-                .roles(Collections.singleton("ROLE_SALESMAN"))
+                .roles(Collections.singleton( "ROLE_USER"))
                 .build();
         salesmanRepository.save(newRegistration);
     }

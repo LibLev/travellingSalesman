@@ -2,6 +2,7 @@ package com.codecool.travelling.controller;
 
 import com.codecool.travelling.model.Company;
 import com.codecool.travelling.model.Salesman;
+import com.codecool.travelling.model.UserCredentials;
 import com.codecool.travelling.repository.CompanyRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
 import com.codecool.travelling.security.JwtTokenServices;
@@ -13,17 +14,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Slf4j
-@CrossOrigin
 @RestController
+@RequestMapping("/auth")
+@CrossOrigin
+@Slf4j
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -31,29 +30,30 @@ public class AuthController {
     private SalesmanRepository salesmanRepository;
     private CompanyRepository companyRepository;
 
-    public AuthController(CompanyRepository companyRepository, SalesmanRepository salesmanRepository, AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices) {
+
+    public AuthController(SalesmanRepository salesmanRepository, AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices, CompanyRepository companyRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenServices = jwtTokenServices;
         this.salesmanRepository = salesmanRepository;
-        this.companyRepository = companyRepository;
+        this.companyRepository =companyRepository;
     }
 
     @PostMapping("/salesman-login")
-    public ResponseEntity salesmanLogin(@RequestBody Map<String, String> data) {
-        Optional<Salesman> user = salesmanRepository.findByEmail(data.get("email"));
+    public ResponseEntity salesmanLogin(@RequestBody UserCredentials data) {
+        Optional<Salesman> user = salesmanRepository.findByUsername(data.getUsername());
         UUID id = user.get().getId();
         try {
-            String email = data.get("email");
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, data.get("password")));
+            String username = data.getUsername();
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
             List<String> roles = authentication.getAuthorities()
                     .stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
 
-            String token = jwtTokenServices.createToken(email, roles);
+            String token = jwtTokenServices.createToken(username, roles);
 
             Map<Object, Object> model = new HashMap<>();
-            model.put("email", email);
+            model.put("username", username);
             model.put("userId", id);
             model.put("roles", roles);
             model.put("token", token);
@@ -64,21 +64,21 @@ public class AuthController {
     }
 
     @PostMapping("/company-login")
-    public ResponseEntity companyLogin(@RequestBody Map<String, String> data) {
-        Optional<Company> user = companyRepository.findByEmail(data.get("email"));
+    public ResponseEntity companyLogin(@RequestBody UserCredentials data) {
+        Optional<Company> user = companyRepository.findByUsername(data.getUsername());
         UUID id = user.get().getId();
         try {
-            String email = data.get("email");
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, data.get("password")));
+            String username = data.getUsername();
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
             List<String> roles = authentication.getAuthorities()
                     .stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
 
-            String token = jwtTokenServices.createToken(email, roles);
+            String token = jwtTokenServices.createToken(username, roles);
 
             Map<Object, Object> model = new HashMap<>();
-            model.put("email", email);
+            model.put("username", username);
             model.put("userId", id);
             model.put("roles", roles);
             model.put("token", token);

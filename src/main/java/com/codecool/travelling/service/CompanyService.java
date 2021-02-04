@@ -24,17 +24,19 @@ public class CompanyService {
 
     public void createNewCompany(Map<String, String> data) {
         Company newRegistration = Company.builder()
+                .username(data.get("username"))
                 .nameOfCompany(data.get("nameOfCompany"))
                 .country(data.get("country"))
                 .county(data.get("county"))
                 .postcode(Integer.parseInt(data.get("postcode")))
+                .city(data.get("city"))
                 .address(data.get("address"))
                 .houseNumber(Integer.parseInt(data.get("houseNumber")))
                 .phoneNumber(Integer.parseInt(data.get("phoneNumber")))
                 .email(data.get("email"))
                 .dateOfFoundation(LocalDate.parse(data.get("dateOfFoundation")))
                 .taxNumber(data.get("taxNumber"))
-                .roles(Collections.singleton("ROLE_COMPANY"))
+                .roles(Collections.singleton("ROLE_USER"))
                 .password(passwordEncoder.encode(data.get("password")))
                 .build();
         companyRepository.save(newRegistration);
