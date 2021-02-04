@@ -15,14 +15,11 @@ import java.util.Map;
 @Service
 public class PositionService {
 
-    private PasswordEncoder passwordEncoder;
     private PositionRepository positionRepository;
 
     public PositionService(PositionRepository positionRepository) {
-        this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         this.positionRepository = positionRepository;
     }
-
 
     public void createNewPosition(Map<String, String> data) {
         Position newRegistration = Position.builder()
@@ -31,7 +28,6 @@ public class PositionService {
                 .salary(Float.parseFloat(data.get("salary")))
 //                .requirements(data.get("requirements"))
 //                .applicant(data.get("applicant"))
-
                 .build();
         positionRepository.save(newRegistration);
     }
