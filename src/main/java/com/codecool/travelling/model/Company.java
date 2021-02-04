@@ -15,7 +15,7 @@ import java.util.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Company {
+public class Company{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

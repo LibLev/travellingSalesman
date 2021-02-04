@@ -19,7 +19,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Salesman {
+public class Salesman{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
