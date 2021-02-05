@@ -23,6 +23,7 @@ public class PositionService {
         Position newRegistration = Position.builder()
                 .company(company)
                 .nameOfPosition(data.get("nameOfPosition"))
+                .city(data.get("city"))
                 .salary(Float.parseFloat(data.get("salary")))
 //                .requirements(data.get("requirements"))
 //                .applicant(data.get("applicant"))
