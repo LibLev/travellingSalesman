@@ -4,13 +4,17 @@ package com.codecool.travelling;
 import com.codecool.travelling.model.Salesman;
 import com.codecool.travelling.repository.CompanyRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Collections;
 
+@Component
+@Slf4j
 public class DataInitializer implements CommandLineRunner {
 
     private final PasswordEncoder passwordEncoder;
@@ -24,7 +28,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         Salesman SF = Salesman.builder()
                 .username("SF")
