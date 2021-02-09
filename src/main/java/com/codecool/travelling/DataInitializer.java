@@ -1,6 +1,7 @@
 package com.codecool.travelling;
 
 
+import com.codecool.travelling.model.Company;
 import com.codecool.travelling.model.Salesman;
 import com.codecool.travelling.repository.CompanyRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
@@ -49,8 +50,28 @@ public class DataInitializer implements CommandLineRunner {
                 .drivingLicense(true)
                 .password(passwordEncoder.encode("password"))
                 .roles(Collections.singleton( "ROLE_USER"))
+                .roles(Collections.singleton( "SALESMAN"))
                 .build();
         salesmanRepository.save(SF);
+
+        Company CC = Company.builder()
+                .username("CC")
+                .nameOfCompany("Company Company")
+                .country("Canada")
+                .county("Toronto")
+                .postcode(74570)
+                .city("Toronto")
+                .address("Knights avenue")
+                .houseNumber(55)
+                .phoneNumber(306715264)
+                .email("company.company@kamu.hu")
+                .dateOfFoundation(LocalDate.parse("2000-01-01"))
+                .taxNumber("123456-7-89")
+                .roles(Collections.singleton("ROLE_USER"))
+                .roles(Collections.singleton("COMPANY"))
+                .password(passwordEncoder.encode("password"))
+                .build();
+        companyRepository.save(CC);
 
     }
 }
