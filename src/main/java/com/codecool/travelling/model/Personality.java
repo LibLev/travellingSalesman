@@ -1,27 +1,16 @@
 package com.codecool.travelling.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
-@Entity
-@Data
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Personality {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-
-    @OneToOne(cascade = CascadeType.MERGE)
-    private Salesman salesman;
 
     @NotNull
     private int studyIndex, vocabulary, readingLiteracy, calculation, 
@@ -29,9 +18,9 @@ public class Personality {
             compliance, attitude, decisionMaking, adaptability, independence,
             objectiveDecisionMaking, entrepreneurship, creativity, humanityFocus;
 
-    private int skillsItems = 5;
-    private int personalityTraitItems = 9;
-    private int personalityFocusItems = 3;
+    private final int skillsItems = 5;
+    private final int personalityTraitItems = 9;
+    private final int personalityFocusItems = 3;
 
 }
 /**

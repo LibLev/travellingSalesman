@@ -65,9 +65,6 @@ public class Salesman{
     @Builder.Default
     private Set<String> roles = new HashSet<>();
 
-    @OneToOne(mappedBy = "salesman", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     @JsonIgnore
-    private Personality personality;
+    private transient Personality personality;
 }
