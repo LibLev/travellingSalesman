@@ -42,6 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests() // restrict access based on the config below:
+                .antMatchers("/v2/**").permitAll() // for testing
+                .antMatchers("/swagger-ui.html/**").permitAll() // for testing
+                .antMatchers("/swagger-resources/**").permitAll() // for testing
+                .antMatchers("/webjars/**").permitAll() // for testing
                 .antMatchers("/auth/**").permitAll() // allowed by anyone
                 .antMatchers("/registration/**").permitAll() // allowed by anyone
                 .antMatchers("/position/**").permitAll() // allowed by anyone
