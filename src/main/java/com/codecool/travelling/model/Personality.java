@@ -3,7 +3,6 @@ package com.codecool.travelling.model;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 
 @Builder
@@ -12,10 +11,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Personality {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
 
     @NotNull
     private int studyIndex, vocabulary, readingLiteracy, calculation, 
