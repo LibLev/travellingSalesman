@@ -66,7 +66,6 @@ public class Salesman{
     private Set<String> roles = new HashSet<>();
 
     @OneToOne(mappedBy = "salesman", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Singular
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
