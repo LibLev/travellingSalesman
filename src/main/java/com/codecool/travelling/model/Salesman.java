@@ -1,18 +1,14 @@
 package com.codecool.travelling.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Data
@@ -43,20 +39,36 @@ public class Salesman{
 
     private boolean drivingLicense;
 
-/*    private Map<String, String> degreeWithSchool = new HashMap<>();
-
+    @ElementCollection(fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
+    @Transient
     private Map<String, String> oldPositionsWithCompany = new HashMap<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
+    @Transient
+    private Map<String, String> degreeWithSchool = new HashMap<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
     @Singular
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    private List<String> languages = new ArrayList<>();*/
+    private Set<String> languages = new HashSet<>();
 
     // roles of the user (ADMIN, USER,..)
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private Set<String> roles = new HashSet<>();
+
+    @OneToOne(mappedBy = "salesman", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Singular
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
+    private Personality personality;
 }
