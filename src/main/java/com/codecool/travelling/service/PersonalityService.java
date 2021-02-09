@@ -85,9 +85,29 @@ public class PersonalityService {
 
     /**
      * oldCV data matching
-     * munkaév
-     * budget
      *
+     * range
+     *      birthday (counted as years; int)
+     *      sizeOfCompany (small company, medium sized, large one, multi; enum)
+     *
+     * minimum
+     *      school level (highschool, ba, bm; enum)
+     *      coursesCount (How many courses he took part in; int)
+     *      relevantExperience (months spent in fields relevant for the search, int)
+     *      languageProficiency (for each relevant language: enum: A1, A2, B1, B2. C1. C2; enum)
+     *      recommendationUploaded (number of recommendations - only relevant if requested; int)
+     *      budgetHandled (Yearly budget handled/requested to be handled; double)
+     *
+     * yes/no matches (boolean)
+     *     driversLicence
+     *     careerStarter (sales: I am one, position: it is ok to be one)
+     *     currentlyEmployed (sales: I am one, position: it is ok to wait till you tie up stuff)
+     *     sectors(enum - should write up some mock sectors to add to sectors enum)
+     *     locationOfWork
+     *
+     * special
+     *      salary (it is minimum in regards of salesman, but maximum in regards of company; double)
+     *      systemsUsed (minimum from company's side, irrelevant from other side; Collection - stream)
      */
 
 
