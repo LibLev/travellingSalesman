@@ -49,6 +49,27 @@ public class PersonalityController {
         return skillDifference;
     }
 
+    private int[] calculateDifferenceForPersonalityTrait(Personality salesman, Personality position) {
+        int[] skillDifference = new int[salesman.getPersonalityTraitItems()];
+        skillDifference[0] = Math.abs(salesman.getEnergyLevel()- position.getEnergyLevel());
+        skillDifference[1] = Math.abs(salesman.getAssertiveness()- position.getAssertiveness());
+        skillDifference[2] = Math.abs(salesman.getSocialContacts()- position.getSocialContacts());
+        skillDifference[3] = Math.abs(salesman.getCompliance()- position.getCompliance());
+        skillDifference[4] = Math.abs(salesman.getAttitude()- position.getAttitude());
+        skillDifference[5] = Math.abs(salesman.getObjectiveDecisionMaking()- position.getObjectiveDecisionMaking());
+        skillDifference[6] = Math.abs(salesman.getDecisionMaking()- position.getDecisionMaking());
+        skillDifference[7] = Math.abs(salesman.getAdaptability()- position.getAdaptability());
+        skillDifference[8] = Math.abs(salesman.getIndependence()- position.getIndependence());
+        return skillDifference;
+    }
+
+    private int[] calculateDifferenceForPersonalityFocus(Personality salesman, Personality position) {
+        int[] skillDifference = new int[salesman.getPersonalityFocusItems()];
+        skillDifference[0] = Math.abs(salesman.getCreativity()- position.getCreativity());
+        skillDifference[1] = Math.abs(salesman.getEntrepreneurship()- position.getEntrepreneurship());
+        skillDifference[2] = Math.abs(salesman.getHumanityFocus()- position.getHumanityFocus());
+        return skillDifference;
+    }
 
 
     private MATCH_LEVEL isSkillRecommended(int[] skillDifference, int treshhold) {
@@ -60,6 +81,8 @@ public class PersonalityController {
         if (averageDif > 5 && countOfDif > 5) return MATCH_LEVEL.ACCEPTABLE;
         return MATCH_LEVEL.NOT_RECOMMENDED;
     }
+
+
 
 
 }
