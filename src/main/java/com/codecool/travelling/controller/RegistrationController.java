@@ -4,10 +4,7 @@ import com.codecool.travelling.service.CompanyService;
 import com.codecool.travelling.service.SalesmanService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -15,12 +12,13 @@ import java.util.Map;
 @CrossOrigin
 @RestController
 @AllArgsConstructor
+@RequestMapping("/registration")
 public class RegistrationController {
 
     private SalesmanService salesmanService;
     private CompanyService companyService;
 
-    @PostMapping("/registration")
+    @PostMapping("")
     public void registration(@RequestBody Map<String, String> data){
         String registrationType = data.get("registrationType");
         if (registrationType.equals("salesmanRegistration")){

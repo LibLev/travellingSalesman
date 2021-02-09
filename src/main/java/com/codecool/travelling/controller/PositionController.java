@@ -1,21 +1,16 @@
 package com.codecool.travelling.controller;
 
-import com.codecool.travelling.model.Position;
-import com.codecool.travelling.service.CompanyService;
 import com.codecool.travelling.service.PositionService;
-import com.codecool.travelling.service.SalesmanService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @Slf4j
 @CrossOrigin
 @RestController
+@RequestMapping("/position")
 @AllArgsConstructor
 public class PositionController {
 

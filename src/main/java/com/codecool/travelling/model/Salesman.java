@@ -15,11 +15,14 @@ import java.util.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Salesman {
+public class Salesman{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+    @NotEmpty
+    private String username;
 
     @NotEmpty
     private String password;
@@ -36,20 +39,32 @@ public class Salesman {
 
     private boolean drivingLicense;
 
-/*    private Map<String, String> degreeWithSchool = new HashMap<>();
-
+    @ElementCollection(fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
+    @Transient
     private Map<String, String> oldPositionsWithCompany = new HashMap<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
+    @Transient
+    private Map<String, String> degreeWithSchool = new HashMap<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
     @Singular
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    private List<String> languages = new ArrayList<>();*/
+    private Set<String> languages = new HashSet<>();
 
     // roles of the user (ADMIN, USER,..)
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private Set<String> roles = new HashSet<>();
+
+    @JsonIgnore
+    private transient Personality personality;
 }

@@ -2,7 +2,6 @@ package com.codecool.travelling.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -43,10 +42,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests() // restrict access based on the config below:
-                .antMatchers("/").permitAll() // allowed by anyone
-                .antMatchers("/registration").permitAll() // allowed by anyone
-                .antMatchers("/salesman-login").permitAll() // allowed by anyone
-                .antMatchers("/company-login").permitAll() // allowed by anyone
+                .antMatchers("/v2/**").permitAll() // for testing
+                .antMatchers("/swagger-ui.html/**").permitAll() // for testing
+                .antMatchers("/swagger-resources/**").permitAll() // for testing
+                .antMatchers("/webjars/**").permitAll() // for testing
+                .antMatchers("/auth/**").permitAll() // allowed by anyone
+                .antMatchers("/registration/**").permitAll() // allowed by anyone
+                .antMatchers("/position/**").permitAll() // allowed by anyone
+                .antMatchers("/position/add-position").hasRole("COMPANY") // allowed if signed in with COMPANY role
+                .antMatchers("/salesman/**").permitAll() //allowed by anyone
                 .anyRequest().denyAll() // anything else is denied; this is a safeguard in case we left something out.
                 .and()
                 // Here we define our custom filter that uses the JWT tokens for authentication.
