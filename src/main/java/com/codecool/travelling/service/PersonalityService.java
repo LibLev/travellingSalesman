@@ -3,6 +3,7 @@ package com.codecool.travelling.service;
 import com.codecool.travelling.model.MATCH_LEVEL;
 import com.codecool.travelling.model.Personality;
 import com.codecool.travelling.model.Position;
+import com.codecool.travelling.model.Salesman;
 import com.codecool.travelling.repository.CompanyRepository;
 import com.codecool.travelling.repository.PositionRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
@@ -121,6 +122,37 @@ public class PersonalityService {
             }
         return result;
      }
+
+    /**
+     * personality matching of all salesmen for the position's requested personality
+     * 1st value List value of return map is MATCH_LEVEL for skills
+     * 2nd value List value of return map is MATCH_LEVEL for personalityTraits
+     *
+     * Map looks like this:
+     * a salesman, MATCH_LEVEL for skills, MATCH_LEVEL for traits
+     */
+
+    public Map<Salesman, List<MATCH_LEVEL>> getAllMatchingSalesman(Personality positionPersonality) {
+        Map<Salesman, List<MATCH_LEVEL>> result = new HashMap<>();
+        List<Salesman> salesmen = salesmanRepository.findAll();
+        ListIterator<Salesman> allSalesmen = salesmen.listIterator();
+        while(allSalesmen.hasNext()){
+            Personality salesPersonality = allSalesmen.next().getPersonality();
+
+            // skill
+            int[] skillDifference = calculateDifferenceForSkill(salesPersonality, positionPersonality);
+
+            // personality trait
+            int[] traitDifference = calculateDifferenceForPersonalityTrait(salesPersonality, positionPersonality);
+
+            result.put(allSalesmen.next(),
+                    Arrays.asList(isSkillRecommended(skillDifference), isSkillRecommended(traitDifference)));
+        }
+        return result;
+    }
+
+
+
 
     /**
      * oldCV data matching
