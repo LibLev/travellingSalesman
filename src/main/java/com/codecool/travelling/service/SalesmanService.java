@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class SalesmanService {
@@ -46,5 +47,9 @@ public class SalesmanService {
                 .roles(Collections.singleton( "SALESMAN"))
                 .build();
         salesmanRepository.save(newRegistration);
+    }
+
+    public Salesman getSalesman(UUID id) {
+        return salesmanRepository.findById(id).get();
     }
 }
