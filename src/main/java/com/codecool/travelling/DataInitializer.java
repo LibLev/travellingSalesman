@@ -49,10 +49,11 @@ public class DataInitializer implements CommandLineRunner {
                 .houseNumber(66)
                 .drivingLicense(true)
                 .password(passwordEncoder.encode("password"))
-                .roles(Collections.singleton( "ROLE_USER"))
                 .roles(Collections.singleton( "SALESMAN"))
                 .build();
         salesmanRepository.save(SF);
+
+        log.info(salesmanRepository.findByUsername("SF").get().toString());
 
         Company CC = Company.builder()
                 .username("CC")
@@ -67,7 +68,6 @@ public class DataInitializer implements CommandLineRunner {
                 .email("company.company@kamu.hu")
                 .dateOfFoundation(LocalDate.parse("2000-01-01"))
                 .taxNumber("123456-7-89")
-                .roles(Collections.singleton("ROLE_USER"))
                 .roles(Collections.singleton("COMPANY"))
                 .password(passwordEncoder.encode("password"))
                 .build();
