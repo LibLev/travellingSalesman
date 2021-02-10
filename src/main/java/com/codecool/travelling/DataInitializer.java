@@ -75,6 +75,7 @@ public class DataInitializer implements CommandLineRunner {
                 .houseNumber(32)
                 .onePosition("Autó értékesítő","Csonti Car")
                 .oneDegree("Diploma", "Budapesti Gazdasági Egyetem")
+                .language("english B2")
                 .drivingLicense(true)
                 .personality(salesmanPersonality)
                 .password(passwordEncoder.encode("password"))
