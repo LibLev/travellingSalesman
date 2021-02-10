@@ -18,7 +18,6 @@ public class PersonalityService {
     private CompanyRepository companyRepository;
     private PositionRepository positionRepository;
     private RoleIdeals roleIdeals;
-    private final int THRESHOLD = 4;
 
     /**
      * Three personality traits:
@@ -29,24 +28,18 @@ public class PersonalityService {
      *             compliance, attitude, decisionMaking, adaptability, independence,
      *             objectiveDecisionMaking
      *
-     * personalityFocus: entrepreneurship, creativity, humanityFocus
+     * personalityFocus: entrepreneurship, creativity, humanityFocus (the other 3 does not matter
+     * in the matching algorithm)
      */
 
 
+
     /**
-     * average of difference
-     * = 0 - perfect match
-     * > 2 - recommended
-     * > 4 - good
-     * > 5 - acceptable
-     * else - not recommended
-     *
-     * count of difference
-     *  = 0 - perfect match
-     * > 2 - recommended
-     * > 4 - good
-     * > 5 - acceptable
-     * else - not recommended
+     * If the valueToCheck is within the range of permittedRange, return 0 otherwise return
+     * the distance from the closest range member
+     * @param valueToCheck
+     * @param permittedRange
+     * @return
      */
 
     private int calculateSingleDifference(int valueToCheck, int[] permittedRange) {
@@ -58,6 +51,12 @@ public class PersonalityService {
     }
 
 
+    /**
+     * Take indvidual personality skills from a salesman, and match it up to the permitted
+     * range described in roleIdeals
+     * @param salesman
+     * @return int[] with the difference values
+     */
 
     private int[] calculateDifferenceForSkill(Personality salesman) {
         int[] skillDifference = new int[salesman.getSkillsItems()];
@@ -69,98 +68,116 @@ public class PersonalityService {
         return skillDifference;
     }
 
-    private int[] calculateDifferenceForPersonalityTrait(Personality salesman, Personality position) {
+    /**
+     * Take individual personality traits from a salesman, and match it up to the permitted
+     * range described in roleIdeals
+     * @param salesman
+     * @return int[] with the difference values
+     */
+
+    private int[] calculateDifferenceForPersonalityTrait(Personality salesman) {
         int[] skillDifference = new int[salesman.getPersonalityTraitItems()];
-        skillDifference[0] = Math.abs(salesman.getEnergyLevel()- position.getEnergyLevel());
-        skillDifference[1] = Math.abs(salesman.getAssertiveness()- position.getAssertiveness());
-        skillDifference[2] = Math.abs(salesman.getSocialContacts()- position.getSocialContacts());
-        skillDifference[3] = Math.abs(salesman.getCompliance()- position.getCompliance());
-        skillDifference[4] = Math.abs(salesman.getAttitude()- position.getAttitude());
-        skillDifference[5] = Math.abs(salesman.getObjectiveDecisionMaking()- position.getObjectiveDecisionMaking());
-        skillDifference[6] = Math.abs(salesman.getDecisionMaking()- position.getDecisionMaking());
-        skillDifference[7] = Math.abs(salesman.getAdaptability()- position.getAdaptability());
-        skillDifference[8] = Math.abs(salesman.getIndependence()- position.getIndependence());
+        skillDifference[0] = calculateSingleDifference(salesman.getEnergyLevel(), roleIdeals.getEnergyLevel());
+        skillDifference[1] = calculateSingleDifference(salesman.getAssertiveness(), roleIdeals.getAssertiveness());
+        skillDifference[2] = calculateSingleDifference(salesman.getSocialContacts(), roleIdeals.getSocialContacts());
+        skillDifference[3] = calculateSingleDifference(salesman.getCompliance(), roleIdeals.getCompliance());
+        skillDifference[4] = calculateSingleDifference(salesman.getAttitude(), roleIdeals.getAttitude());
+        skillDifference[5] = calculateSingleDifference(salesman.getObjectiveDecisionMaking(), roleIdeals.getObjectiveDecisionMaking());
+        skillDifference[6] = calculateSingleDifference(salesman.getDecisionMaking(), roleIdeals.getDecisionMaking());
+        skillDifference[7] = calculateSingleDifference(salesman.getAdaptability(), roleIdeals.getAdaptability());
+        skillDifference[8] = calculateSingleDifference(salesman.getIndependence(), roleIdeals.getIndependence());
         return skillDifference;
     }
 
-    private int[] calculateDifferenceForPersonalityFocus(Personality salesman, Personality position) {
-        int[] skillDifference = new int[salesman.getPersonalityFocusItems()];
-        skillDifference[0] = Math.abs(salesman.getCreativity()- position.getCreativity());
-        skillDifference[1] = Math.abs(salesman.getEntrepreneurship()- position.getEntrepreneurship());
-        skillDifference[2] = Math.abs(salesman.getHumanityFocus()- position.getHumanityFocus());
-        return skillDifference;
-    }
+    /**
+     * Based on difference from optimal range, and the number of parameters that differ
+     * the individual groups of personality aspects will be given enum values of MATCH_LEVEL
+     * @param skillDifference
+     * @return
+     */
 
-
-    private MATCH_LEVEL isSkillRecommended(int[] skillDifference) {
+    private MATCH_LEVEL isSkillRecommendedSkills(int[] skillDifference) {
         double averageDif = Arrays.stream(skillDifference).average().getAsDouble();
-        double countOfDif = Arrays.stream(skillDifference).filter(n->n <= THRESHOLD).count();
+        double countOfDif = Arrays.stream(skillDifference).filter(n->n > 0).count();
         if (averageDif == 0 && countOfDif == 0) return MATCH_LEVEL.PERFECT;
-        if (averageDif > 2 && countOfDif > 2) return MATCH_LEVEL.RECOMMENDED;
-        if (averageDif > 4 && countOfDif > 4) return MATCH_LEVEL.GOOD;
-        if (averageDif > 5 && countOfDif > 5) return MATCH_LEVEL.ACCEPTABLE;
+        if (averageDif > 2 && countOfDif <= 1) return MATCH_LEVEL.RECOMMENDED;
+        if (averageDif > 2 && countOfDif > 2) return MATCH_LEVEL.ACCEPTABLE;
         return MATCH_LEVEL.NOT_RECOMMENDED;
     }
 
-    /**
-     * personality matching of all services for the sale's personality
-     * 1st value List value of return map is MATCH_LEVEL for skills
-     * 2nd value List value of return map is MATCH_LEVEL for personalityTraits
-     *
-     * Map looks like this:
-     * a position, MATCH_LEVEL for skills, MATCH_LEVEL for traits
-     */
-
-    public Map<Position, List<MATCH_LEVEL>> getAllMatchingPositions(Personality salesPersonality) {
-        Map<Position, List<MATCH_LEVEL>> result = new HashMap<>();
-      List<Position> positions = positionRepository.findAll();
-        System.out.println(positions.toString());
-
-        ListIterator<Position> allPositions = positions.listIterator();
-            while(allPositions.hasNext()){
-                Personality positionPersonality = allPositions.next().getPersonality();
-                if (positionPersonality == null) continue;
-                // skill
-                int[] skillDifference = calculateDifferenceForSkill(salesPersonality, positionPersonality);
-
-                // personality trait
-                int[] traitDifference = calculateDifferenceForPersonalityTrait(salesPersonality, positionPersonality);
-
-                result.put(allPositions.next(),
-                        Arrays.asList(isSkillRecommended(skillDifference), isSkillRecommended(traitDifference)));
-            }
-        return result;
-     }
-
-    /**
-     * personality matching of all salesmen for the position's requested personality
-     * 1st value List value of return map is MATCH_LEVEL for skills
-     * 2nd value List value of return map is MATCH_LEVEL for personalityTraits
-     *
-     * Map looks like this:
-     * a salesman, MATCH_LEVEL for skills, MATCH_LEVEL for traits
-     */
-
-    public Map<Salesman, List<MATCH_LEVEL>> getAllMatchingSalesman(Personality positionPersonality) {
-        Map<Salesman, List<MATCH_LEVEL>> result = new HashMap<>();
-        List<Salesman> salesmen = salesmanRepository.findAll();
-        ListIterator<Salesman> allSalesmen = salesmen.listIterator();
-        while(allSalesmen.hasNext()){
-            Personality salesPersonality = allSalesmen.next().getPersonality();
-            if (salesPersonality == null) continue;
-
-
-            // skill
-            int[] skillDifference = calculateDifferenceForSkill(salesPersonality, positionPersonality);
-
-            // personality trait
-            int[] traitDifference = calculateDifferenceForPersonalityTrait(salesPersonality, positionPersonality);
-
-            result.put(allSalesmen.next(),
-                    Arrays.asList(isSkillRecommended(skillDifference), isSkillRecommended(traitDifference)));
-        }
-        return result;
+    private MATCH_LEVEL isSkillRecommendedTraits(int[] skillDifference) {
+        double averageDif = Arrays.stream(skillDifference).average().getAsDouble();
+        double countOfDif = Arrays.stream(skillDifference).filter(n->n > 0).count();
+        if (averageDif == 0 && countOfDif == 0) return MATCH_LEVEL.PERFECT;
+        if (averageDif > 2 && countOfDif <= 2) return MATCH_LEVEL.RECOMMENDED;
+        if (averageDif > 1 && countOfDif > 3) return MATCH_LEVEL.ACCEPTABLE;
+        return MATCH_LEVEL.NOT_RECOMMENDED;
     }
+
+
+    /**
+     * The higher the number the higher the ranking in the importance and focus for the
+     * salesPersonality.
+     * 1 means it was the first in their focus.
+     * numbers thus represent the order of these values
+     * only 3 from the 6 possible orders matter
+     * @param salesPersonality
+     * @return
+     */
+
+    private MATCH_LEVEL isSkillRecommendedFocus(Personality salesPersonality) {
+        if (salesPersonality.getEntrepreneurship() == 1 &&
+                salesPersonality.getCreativity() == 2 &&
+                salesPersonality.getHumanityFocus() == 3) {
+            return MATCH_LEVEL.PERFECT;
+        } else if (salesPersonality.getEntrepreneurship()>=3 &&
+                salesPersonality.getHumanityFocus()>=3){
+            return MATCH_LEVEL.RECOMMENDED;
+        } else if (salesPersonality.getEntrepreneurship() == 1) {
+            return MATCH_LEVEL.ACCEPTABLE;
+        } else {
+            return MATCH_LEVEL.NOT_RECOMMENDED;
+        }
+    }
+
+
+    /**
+     * personality matching of person seeking job to ideal personality for that job role
+     * the evaluation is based on the weakest possible aspect. If anything is in the not recommended
+     * then the person is not recommended.
+     * If anything is in the good, it can only be acceptable.
+     * Same rule applies
+     *
+     * @param salesPersonality
+     * @return MATCH_LEVEL
+     */
+
+    public Optional<MATCH_LEVEL> matchPersonToRole (Personality salesPersonality) {
+        Optional<MATCH_LEVEL> matchLevel = Optional.empty();
+        MATCH_LEVEL skillsMatch = isSkillRecommendedSkills(calculateDifferenceForSkill(salesPersonality));
+        MATCH_LEVEL traitMatch = isSkillRecommendedTraits(calculateDifferenceForPersonalityTrait(salesPersonality));
+        MATCH_LEVEL focusMatch = isSkillRecommendedFocus(salesPersonality);
+
+        if (skillsMatch == MATCH_LEVEL.NOT_RECOMMENDED || traitMatch == MATCH_LEVEL.NOT_RECOMMENDED
+                || focusMatch == MATCH_LEVEL.NOT_RECOMMENDED) {
+            matchLevel = Optional.of(MATCH_LEVEL.NOT_RECOMMENDED);
+            return matchLevel;
+        } else if (skillsMatch == MATCH_LEVEL.ACCEPTABLE || traitMatch == MATCH_LEVEL.ACCEPTABLE
+                || focusMatch == MATCH_LEVEL.ACCEPTABLE) {
+            matchLevel = Optional.of(MATCH_LEVEL.ACCEPTABLE);
+            return matchLevel;
+        } else if (skillsMatch == MATCH_LEVEL.RECOMMENDED || traitMatch == MATCH_LEVEL.RECOMMENDED
+                || focusMatch == MATCH_LEVEL.RECOMMENDED) {
+            matchLevel = Optional.of(MATCH_LEVEL.RECOMMENDED);
+            return matchLevel;
+        } else if (skillsMatch == MATCH_LEVEL.PERFECT || traitMatch == MATCH_LEVEL.PERFECT
+                || focusMatch == MATCH_LEVEL.PERFECT) {
+            matchLevel = Optional.of(MATCH_LEVEL.PERFECT);
+            return matchLevel;
+        }
+        return matchLevel;
+
+     }
 
 
 
