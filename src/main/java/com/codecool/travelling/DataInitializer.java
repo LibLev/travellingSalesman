@@ -136,6 +136,8 @@ public class DataInitializer implements CommandLineRunner {
                 .build();
         positionRepository.save(newRegistration);
 
+
+
         log.info(personalityService.getAllMatchingPositions(SF.getPersonality()).toString());
 
     }

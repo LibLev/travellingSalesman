@@ -58,7 +58,7 @@ public class PersonalityService {
         skillDifference[1] = Math.abs(salesman.getVocabulary()- position.getVocabulary());
         skillDifference[2] = Math.abs(salesman.getReadingLiteracy()- position.getReadingLiteracy());
         skillDifference[3] = Math.abs(salesman.getCalculation()- position.getCalculation());
-        skillDifference[5] = Math.abs(salesman.getNumberComprehension()- position.getNumberComprehension());
+        skillDifference[4] = Math.abs(salesman.getNumberComprehension()- position.getNumberComprehension());
         return skillDifference;
     }
 
@@ -105,12 +105,14 @@ public class PersonalityService {
      */
 
     public Map<Position, List<MATCH_LEVEL>> getAllMatchingPositions(Personality salesPersonality) {
-      Map<Position, List<MATCH_LEVEL>> result = new HashMap<>();
+        Map<Position, List<MATCH_LEVEL>> result = new HashMap<>();
       List<Position> positions = positionRepository.findAll();
+        System.out.println(positions.toString());
+
         ListIterator<Position> allPositions = positions.listIterator();
             while(allPositions.hasNext()){
                 Personality positionPersonality = allPositions.next().getPersonality();
-
+                if (positionPersonality == null) continue;
                 // skill
                 int[] skillDifference = calculateDifferenceForSkill(salesPersonality, positionPersonality);
 
@@ -138,6 +140,8 @@ public class PersonalityService {
         ListIterator<Salesman> allSalesmen = salesmen.listIterator();
         while(allSalesmen.hasNext()){
             Personality salesPersonality = allSalesmen.next().getPersonality();
+            if (salesPersonality == null) continue;
+
 
             // skill
             int[] skillDifference = calculateDifferenceForSkill(salesPersonality, positionPersonality);
