@@ -1,10 +1,7 @@
 package com.codecool.travelling;
 
 
-import com.codecool.travelling.model.Company;
-import com.codecool.travelling.model.Personality;
-import com.codecool.travelling.model.Position;
-import com.codecool.travelling.model.Salesman;
+import com.codecool.travelling.model.*;
 import com.codecool.travelling.repository.CompanyRepository;
 import com.codecool.travelling.repository.PositionRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
@@ -40,7 +37,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        Personality salesmanPersonality = Personality.builder()
+        SalesmanPersonality salesmanPersonality = SalesmanPersonality.builder()
                 .adaptability(7)
                 .assertiveness(7)
                 .attitude(7)
@@ -80,10 +77,11 @@ public class DataInitializer implements CommandLineRunner {
                 .oneDegree("Diploma", "Budapesti Gazdasági Egyetem")
                 .language("english B2")
                 .drivingLicense(true)
-                .personality(salesmanPersonality)
+                .salesmanPersonality(salesmanPersonality)
                 .password(passwordEncoder.encode("password"))
                 .roles(Collections.singleton( "SALESMAN"))
                 .build();
+        salesmanPersonality.setSalesman(SF);
         salesmanRepository.save(SF);
 
         log.info(salesmanRepository.findByUsername("SF").get().toString());
@@ -104,9 +102,8 @@ public class DataInitializer implements CommandLineRunner {
                 .roles(Collections.singleton("COMPANY"))
                 .password(passwordEncoder.encode("password"))
                 .build();
-        companyRepository.save(CC);
 
-        Personality requiredPersonality = Personality.builder()
+        RequiredPersonality requiredPersonality = RequiredPersonality.builder()
                 .adaptability(7)
                 .assertiveness(7)
                 .attitude(7)
@@ -126,17 +123,19 @@ public class DataInitializer implements CommandLineRunner {
                 .vocabulary(7)
                 .build();
 
-        Position newRegistration = Position.builder()
-                .company(CC)
+        Position newPosition = Position.builder()
                 .nameOfPosition("Autó értékesítő")
                 .city("Budapest")
                 .salary(350000)
                 .requirements(Arrays.asList("Kommunikatív", "Terhelhető", "Kreatív"))
-                .personality(requiredPersonality)
+                .requiredPersonality(requiredPersonality)
                 .build();
-        positionRepository.save(newRegistration);
 
-        log.info(personalityService.getAllMatchingPositions(SF.getPersonality()).toString());
+        requiredPersonality.setPosition(newPosition);
+        newPosition.setCompany(CC);
+        companyRepository.save(CC);
+
+        log.info(personalityService.getAllMatchingPositions(SF.getSalesmanPersonality()).toString());
 
     }
 }

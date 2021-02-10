@@ -109,7 +109,7 @@ public class PersonalityService {
       List<Position> positions = positionRepository.findAll();
         ListIterator<Position> allPositions = positions.listIterator();
             while(allPositions.hasNext()){
-                Personality positionPersonality = allPositions.next().getPersonality();
+                Personality positionPersonality = allPositions.next().getRequiredPersonality();
 
                 // skill
                 int[] skillDifference = calculateDifferenceForSkill(salesPersonality, positionPersonality);
@@ -137,7 +137,7 @@ public class PersonalityService {
         List<Salesman> salesmen = salesmanRepository.findAll();
         ListIterator<Salesman> allSalesmen = salesmen.listIterator();
         while(allSalesmen.hasNext()){
-            Personality salesPersonality = allSalesmen.next().getPersonality();
+            Personality salesPersonality = allSalesmen.next().getSalesmanPersonality();
 
             // skill
             int[] skillDifference = calculateDifferenceForSkill(salesPersonality, positionPersonality);

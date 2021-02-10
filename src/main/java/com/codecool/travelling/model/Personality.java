@@ -1,16 +1,18 @@
 package com.codecool.travelling.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotNull;
 
-
-@Builder
+@Data
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class Personality {
+public abstract class Personality {
+
 
     @NotNull
     private int studyIndex, vocabulary, readingLiteracy, calculation, 

@@ -50,7 +50,6 @@ public class Salesman{
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    @Transient
     @Singular("onePosition")
     private Map<String, String> oldPositionsWithCompany = new HashMap<>();
 
@@ -58,7 +57,6 @@ public class Salesman{
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    @Transient
     @Singular("oneDegree")
     private Map<String, String> degreeWithSchool = new HashMap<>();
 
@@ -74,6 +72,6 @@ public class Salesman{
     @Builder.Default
     private Set<String> roles = new HashSet<>();
 
-    @JsonIgnore
-    private transient Personality personality;
+    @OneToOne(mappedBy = "salesman", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private SalesmanPersonality salesmanPersonality;
 }

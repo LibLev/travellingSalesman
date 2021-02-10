@@ -28,8 +28,8 @@ public class Position {
     @NotNull
     private float salary;
 
-    @JsonIgnore
-    private transient Personality personality;
+    @OneToOne(mappedBy = "position", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private RequiredPersonality requiredPersonality;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Singular
