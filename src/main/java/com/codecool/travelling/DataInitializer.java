@@ -58,6 +58,9 @@ public class DataInitializer implements CommandLineRunner {
                 .socialContacts(7)
                 .studyIndex(7)
                 .vocabulary(7)
+                .administrative(7)
+                .scientificProfessional(7)
+                .mechanical(7)
                 .build();
 
         Salesman SF = Salesman.builder()
@@ -124,6 +127,9 @@ public class DataInitializer implements CommandLineRunner {
                 .socialContacts(7)
                 .studyIndex(7)
                 .vocabulary(7)
+                .administrative(7)
+                .scientificProfessional(7)
+                .mechanical(7)
                 .build();
 
         Position newRegistration = Position.builder()

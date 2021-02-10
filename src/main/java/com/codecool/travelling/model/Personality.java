@@ -16,7 +16,8 @@ public class Personality {
     private int studyIndex, vocabulary, readingLiteracy, calculation, 
             numberComprehension, energyLevel, assertiveness, socialContacts,
             compliance, attitude, decisionMaking, adaptability, independence,
-            objectiveDecisionMaking, entrepreneurship, creativity, humanityFocus;
+            objectiveDecisionMaking, entrepreneurship, creativity, humanityFocus,
+            mechanical, scientificProfessional, administrative;
 
     private final int skillsItems = 5;
     private final int personalityTraitItems = 9;
