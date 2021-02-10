@@ -132,10 +132,10 @@ public class DataInitializer implements CommandLineRunner {
                 .build();
 
         requiredPersonality.setPosition(newPosition);
-        newPosition.setCompany(CC);
-        companyRepository.save(CC);
+        CC.setPositions(Arrays.asList(newPosition));
+        positionRepository.save(newPosition);
 
-        log.info(personalityService.getAllMatchingPositions(SF.getSalesmanPersonality()).toString());
+        //log.info(personalityService.getAllMatchingPositions(SF.getSalesmanPersonality()).toString());
 
     }
 }
