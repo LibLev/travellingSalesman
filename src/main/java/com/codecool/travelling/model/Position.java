@@ -43,5 +43,6 @@ public class Position {
     @ToString.Exclude
     @JsonIgnore
     @Transient
+    @Singular("salesman")
     private Map<Salesman, STATUS> applicants = new HashMap<>();
 }

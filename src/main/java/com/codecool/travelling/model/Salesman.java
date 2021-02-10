@@ -44,6 +44,7 @@ public class Salesman{
     @ToString.Exclude
     @JsonIgnore
     @Transient
+    @Singular("onePosition")
     private Map<String, String> oldPositionsWithCompany = new HashMap<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -51,6 +52,7 @@ public class Salesman{
     @ToString.Exclude
     @JsonIgnore
     @Transient
+    @Singular("oneDegree")
     private Map<String, String> degreeWithSchool = new HashMap<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
