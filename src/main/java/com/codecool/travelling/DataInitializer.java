@@ -8,6 +8,7 @@ import com.codecool.travelling.model.Salesman;
 import com.codecool.travelling.repository.CompanyRepository;
 import com.codecool.travelling.repository.PositionRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
+import com.codecool.travelling.service.PersonalityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -26,12 +27,14 @@ public class DataInitializer implements CommandLineRunner {
     private final SalesmanRepository salesmanRepository;
     private final CompanyRepository companyRepository;
     private final PositionRepository positionRepository;
+    private final PersonalityService personalityService;
 
-    public DataInitializer(PositionRepository positionRepository,SalesmanRepository salesmanRepository, CompanyRepository companyRepository) {
+    public DataInitializer(PersonalityService personalityService,PositionRepository positionRepository,SalesmanRepository salesmanRepository, CompanyRepository companyRepository) {
         this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         this.salesmanRepository = salesmanRepository;
         this.companyRepository = companyRepository;
         this.positionRepository = positionRepository;
+        this.personalityService = personalityService;
     }
 
     @Override
@@ -132,6 +135,8 @@ public class DataInitializer implements CommandLineRunner {
                 .personality(requiredPersonality)
                 .build();
         positionRepository.save(newRegistration);
+
+        log.info(personalityService.getAllMatchingPositions(SF.getPersonality()).toString());
 
     }
 }
