@@ -1,9 +1,6 @@
 package com.codecool.travelling.service;
 
-import com.codecool.travelling.model.MATCH_LEVEL;
-import com.codecool.travelling.model.Personality;
-import com.codecool.travelling.model.Position;
-import com.codecool.travelling.model.Salesman;
+import com.codecool.travelling.model.*;
 import com.codecool.travelling.repository.CompanyRepository;
 import com.codecool.travelling.repository.PositionRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
@@ -11,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 @Service
 @AllArgsConstructor
@@ -19,6 +17,7 @@ public class PersonalityService {
     private SalesmanRepository salesmanRepository;
     private CompanyRepository companyRepository;
     private PositionRepository positionRepository;
+    private RoleIdeals roleIdeals;
     private final int THRESHOLD = 4;
 
     /**
@@ -50,15 +49,23 @@ public class PersonalityService {
      * else - not recommended
      */
 
+    private int calculateSingleDifference(int valueToCheck, int[] permittedRange) {
+        int max = IntStream.of(permittedRange).max().orElse(Integer.MIN_VALUE);
+        int min = IntStream.of(permittedRange).min().orElse(Integer.MAX_VALUE);
+        return (valueToCheck >= min && valueToCheck <= max)
+                ? 0
+                : Math.min(Math.abs(valueToCheck-min), Math.abs(valueToCheck-max));
+    }
 
 
-    private int[] calculateDifferenceForSkill(Personality salesman, Personality position) {
+
+    private int[] calculateDifferenceForSkill(Personality salesman) {
         int[] skillDifference = new int[salesman.getSkillsItems()];
-        skillDifference[0] = Math.abs(salesman.getStudyIndex()- position.getStudyIndex());
-        skillDifference[1] = Math.abs(salesman.getVocabulary()- position.getVocabulary());
-        skillDifference[2] = Math.abs(salesman.getReadingLiteracy()- position.getReadingLiteracy());
-        skillDifference[3] = Math.abs(salesman.getCalculation()- position.getCalculation());
-        skillDifference[4] = Math.abs(salesman.getNumberComprehension()- position.getNumberComprehension());
+        skillDifference[0] = calculateSingleDifference(salesman.getStudyIndex(), roleIdeals.getStudyIndex());
+        skillDifference[1] = calculateSingleDifference(salesman.getStudyIndex(), roleIdeals.getVocabulary());
+        skillDifference[2] = calculateSingleDifference(salesman.getStudyIndex(), roleIdeals.getReadingLiteracy());
+        skillDifference[3] = calculateSingleDifference(salesman.getStudyIndex(), roleIdeals.getCalculation());
+        skillDifference[4] = calculateSingleDifference(salesman.getStudyIndex(), roleIdeals.getNumberComprehension());
         return skillDifference;
     }
 

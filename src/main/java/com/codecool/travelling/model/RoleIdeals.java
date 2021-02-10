@@ -52,4 +52,5 @@ public class RoleIdeals {
  *             objectiveDecisionMaking
  *
  * personalityFocus: entrepreneurship, creativity, humanityFocus
+ *       + administrative, scientificProfessional, mechanical,
  */
