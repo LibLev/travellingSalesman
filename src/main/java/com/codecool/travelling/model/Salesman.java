@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -22,13 +23,19 @@ public class Salesman{
     private UUID id;
 
     @NotEmpty
+    @Column(unique=true)
     private String username;
 
     @NotEmpty
     private String password;
 
     @NotEmpty
-    private String firstname, lastname, middleName, gender, email, nationality, country, county, city, address;
+    @Column(unique = true)
+    @Email
+    private String email;
+
+    @NotEmpty
+    private String firstname, lastname, middleName, gender, nationality, country, county, city, address;
 
     @NotNull
     private int postcode, houseNumber, phoneNumber;
