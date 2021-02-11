@@ -58,7 +58,7 @@ public class PersonalityService {
         skillDifference[1] = Math.abs(salesman.getVocabulary()- position.getVocabulary());
         skillDifference[2] = Math.abs(salesman.getReadingLiteracy()- position.getReadingLiteracy());
         skillDifference[3] = Math.abs(salesman.getCalculation()- position.getCalculation());
-        skillDifference[5] = Math.abs(salesman.getNumberComprehension()- position.getNumberComprehension());
+        skillDifference[4] = Math.abs(salesman.getNumberComprehension()- position.getNumberComprehension());
         return skillDifference;
     }
 
