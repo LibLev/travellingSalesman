@@ -21,7 +21,7 @@ public class PersonalityService {
 
     private RoleIdeal roleIdeal;
 
-    private final int[] studyIndex = {6,7,8, 9};
+    private final int[] studyIndex = {6, 7, 8, 9};
     private final int[] vocabulary = {6, 7, 8};
     private final int[] readingLiteracy = {7, 8, 9};
     private final int[] calculation = {6, 7, 8};
@@ -64,10 +64,10 @@ public class PersonalityService {
      */
 
 
-
     /**
      * If the valueToCheck is within the range of permittedRange, return 0 otherwise return
      * the distance from the closest range member
+     *
      * @param valueToCheck
      * @param permittedRange
      * @return
@@ -78,13 +78,14 @@ public class PersonalityService {
         int min = permittedRange.stream().mapToInt(n -> n).min().orElse(Integer.MAX_VALUE);
         return (valueToCheck >= min && valueToCheck <= max)
                 ? 0
-                : Math.min(Math.abs(valueToCheck-min), Math.abs(valueToCheck-max));
+                : Math.min(Math.abs(valueToCheck - min), Math.abs(valueToCheck - max));
     }
 
 
     /**
      * Take indvidual personality skills from a salesman, and match it up to the permitted
      * range described in roleIdeal
+     *
      * @param salesman
      * @return int[] with the difference values
      */
@@ -102,6 +103,7 @@ public class PersonalityService {
     /**
      * Take individual personality traits from a salesman, and match it up to the permitted
      * range described in roleIdeal
+     *
      * @param salesman
      * @return int[] with the difference values
      */
@@ -123,16 +125,17 @@ public class PersonalityService {
     /**
      * Based on difference from optimal range, and the number of parameters that differ
      * the individual groups of personality aspects will be given enum values of MATCH_LEVEL
+     *
      * @param skillDifference
      * @return
      */
 
     private MATCH_LEVEL isSkillRecommendedSkills(int[] skillDifference) {
-        System.out.println("első csoport eltérései "+Arrays.toString(skillDifference));
+        System.out.println("első csoport eltérései " + Arrays.toString(skillDifference));
         int biggestDif = (int) Arrays.stream(skillDifference).max().getAsInt();
-        int countOfDif = (int) Arrays.stream(skillDifference).filter(n-> n > 0).count();
-        System.out.println("legnagyobb különbség = "+ biggestDif);
-        System.out.println("hány elemben tér el = "+ countOfDif);
+        int countOfDif = (int) Arrays.stream(skillDifference).filter(n -> n > 0).count();
+        System.out.println("legnagyobb különbség = " + biggestDif);
+        System.out.println("hány elemben tér el = " + countOfDif);
         if (biggestDif == 0 && countOfDif == 0) return MATCH_LEVEL.PERFECT;
         if (biggestDif <= 2 && countOfDif <= 1) return MATCH_LEVEL.RECOMMENDED;
         if (biggestDif <= 2 && countOfDif <= 2) return MATCH_LEVEL.ACCEPTABLE;
@@ -140,11 +143,11 @@ public class PersonalityService {
     }
 
     private MATCH_LEVEL isSkillRecommendedTraits(int[] skillDifference) {
-        System.out.println("második csoport eltérései "+Arrays.toString(skillDifference));
+        System.out.println("második csoport eltérései " + Arrays.toString(skillDifference));
         int biggestDif = (int) Arrays.stream(skillDifference).max().getAsInt();
-        int countOfDif = (int) Arrays.stream(skillDifference).filter(n-> n > 0).count();
-        System.out.println("legnagyobb különbség = "+ biggestDif);
-        System.out.println("hány elemben tér el = "+ countOfDif);
+        int countOfDif = (int) Arrays.stream(skillDifference).filter(n -> n > 0).count();
+        System.out.println("legnagyobb különbség = " + biggestDif);
+        System.out.println("hány elemben tér el = " + countOfDif);
         if (biggestDif == 0 && countOfDif == 0) return MATCH_LEVEL.PERFECT;
         if (biggestDif <= 2 && countOfDif <= 2) return MATCH_LEVEL.RECOMMENDED;
         if (biggestDif <= 1 && countOfDif <= 3) return MATCH_LEVEL.ACCEPTABLE;
@@ -158,6 +161,7 @@ public class PersonalityService {
      * 1 means it was the first in their focus.
      * numbers thus represent the order of these values
      * only 3 from the 6 possible orders matter
+     *
      * @param salesPersonality
      * @return
      */
@@ -168,8 +172,8 @@ public class PersonalityService {
                 salesPersonality.getCreativity() == 2 &&
                 salesPersonality.getHumanityFocus() == 3) {
             return MATCH_LEVEL.PERFECT;
-        } else if (salesPersonality.getEntrepreneurship() <=3 &&
-                salesPersonality.getHumanityFocus()<=3){
+        } else if (salesPersonality.getEntrepreneurship() <= 3 &&
+                salesPersonality.getHumanityFocus() <= 3) {
             return MATCH_LEVEL.RECOMMENDED;
         } else if (salesPersonality.getEntrepreneurship() == 1) {
             return MATCH_LEVEL.ACCEPTABLE;
@@ -190,39 +194,35 @@ public class PersonalityService {
      * @return MATCH_LEVEL
      */
 
-    public Optional<MATCH_LEVEL> matchPersonToRole (Salesman salesman) {
+    public MATCH_LEVEL matchPersonToRole(Salesman salesman) {
 
-        Optional<MATCH_LEVEL> matchLevel = Optional.empty();
+        MATCH_LEVEL matchLevel = MATCH_LEVEL.NOT_RECOMMENDED;
         MATCH_LEVEL skillsMatch = isSkillRecommendedSkills(calculateDifferenceForSkill(salesman.getPersonality()));
         MATCH_LEVEL traitMatch = isSkillRecommendedTraits(calculateDifferenceForPersonalityTrait(salesman.getPersonality()));
         MATCH_LEVEL focusMatch = isSkillRecommendedFocus(salesman.getPersonality());
 
-        if (skillsMatch == MATCH_LEVEL.NOT_RECOMMENDED || traitMatch == MATCH_LEVEL.NOT_RECOMMENDED
-                || focusMatch == MATCH_LEVEL.NOT_RECOMMENDED) {
-            matchLevel = Optional.of(MATCH_LEVEL.NOT_RECOMMENDED);
-            return matchLevel;
-
-        } else if (skillsMatch == MATCH_LEVEL.ACCEPTABLE || traitMatch == MATCH_LEVEL.ACCEPTABLE
+        if (skillsMatch == MATCH_LEVEL.ACCEPTABLE || traitMatch == MATCH_LEVEL.ACCEPTABLE
                 || focusMatch == MATCH_LEVEL.ACCEPTABLE) {
-            matchLevel = Optional.of(MATCH_LEVEL.ACCEPTABLE);
+            matchLevel = MATCH_LEVEL.ACCEPTABLE;
+            salesman.setMatchLevel(matchLevel);
             return matchLevel;
 
         } else if (skillsMatch == MATCH_LEVEL.RECOMMENDED || traitMatch == MATCH_LEVEL.RECOMMENDED
                 || focusMatch == MATCH_LEVEL.RECOMMENDED) {
-            matchLevel = Optional.of(MATCH_LEVEL.RECOMMENDED);
+            matchLevel = MATCH_LEVEL.RECOMMENDED;
+            salesman.setMatchLevel(matchLevel);
             return matchLevel;
 
         } else if (skillsMatch == MATCH_LEVEL.PERFECT || traitMatch == MATCH_LEVEL.PERFECT
                 || focusMatch == MATCH_LEVEL.PERFECT) {
-            matchLevel = Optional.of(MATCH_LEVEL.PERFECT);
+            matchLevel = MATCH_LEVEL.PERFECT;
+            salesman.setMatchLevel(matchLevel);
             return matchLevel;
         }
-        salesman.setMatch_level(matchLevel.get());
+        salesman.setMatchLevel(matchLevel);
         return matchLevel;
 
-     }
-
-
+    }
 
 
     /**

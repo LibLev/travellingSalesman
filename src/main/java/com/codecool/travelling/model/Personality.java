@@ -2,10 +2,7 @@ package com.codecool.travelling.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
@@ -31,6 +28,9 @@ public class Personality {
     private final int skillsItems = 5;
     private final int personalityTraitItems = 9;
     private final int personalityFocusItems = 3;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Salesman salesman;
 
 }
 /**

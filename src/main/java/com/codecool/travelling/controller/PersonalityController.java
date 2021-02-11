@@ -20,7 +20,7 @@ public class PersonalityController {
     private PersonalityService personalityService;
 
     @GetMapping("/match-Person-To-Role")
-    public Optional<MATCH_LEVEL> matchPersonToRole (@RequestBody Salesman salesman){
+    public MATCH_LEVEL matchPersonToRole (@RequestBody Salesman salesman){
         return personalityService.matchPersonToRole(salesman);
     }
 

@@ -1,14 +1,12 @@
 package com.codecool.travelling;
 
 
-import com.codecool.travelling.model.Company;
-import com.codecool.travelling.model.Personality;
-import com.codecool.travelling.model.Position;
-import com.codecool.travelling.model.Salesman;
+import com.codecool.travelling.model.*;
 import com.codecool.travelling.repository.CompanyRepository;
 import com.codecool.travelling.repository.PositionRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
 import com.codecool.travelling.service.PersonalityService;
+import com.codecool.travelling.service.PositionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -28,13 +26,15 @@ public class DataInitializer implements CommandLineRunner {
     private final CompanyRepository companyRepository;
     private final PositionRepository positionRepository;
     private final PersonalityService personalityService;
+    private final PositionService positionService;
 
-    public DataInitializer(PersonalityService personalityService,PositionRepository positionRepository,SalesmanRepository salesmanRepository, CompanyRepository companyRepository) {
+    public DataInitializer(PositionService positionService,PersonalityService personalityService,PositionRepository positionRepository,SalesmanRepository salesmanRepository, CompanyRepository companyRepository) {
         this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         this.salesmanRepository = salesmanRepository;
         this.companyRepository = companyRepository;
         this.positionRepository = positionRepository;
         this.personalityService = personalityService;
+        this.positionService = positionService;
     }
 
     @Override
@@ -89,6 +89,7 @@ public class DataInitializer implements CommandLineRunner {
                 .password(passwordEncoder.encode("password"))
                 .roles(Collections.singleton( "SALESMAN"))
                 .build();
+        //salesmanPersonality.setSalesman(SF);
         salesmanRepository.save(SF);
 
         log.info(salesmanRepository.findByUsername("SF").get().toString());
@@ -134,19 +135,21 @@ public class DataInitializer implements CommandLineRunner {
                 .mechanical(7)
                 .build();
 
-        Position newRegistration = Position.builder()
+        Position newPosition = Position.builder()
                 .company(CC)
                 .nameOfPosition("Autó értékesítő")
                 .city("Budapest")
                 .salary(350000)
+                .requiredMatchLevel(MATCH_LEVEL.PERFECT)
                 .requirements(Arrays.asList("Kommunikatív", "Terhelhető", "Kreatív"))
                 .personality(requiredPersonality)
                 .build();
-        positionRepository.save(newRegistration);
+        positionRepository.save(newPosition);
 
 
 
         log.info(personalityService.matchPersonToRole(SF).toString());
+       // log.info(positionService.matchPersonToPositionBasedOnPersonality(SF).toString());
 
     }
 }

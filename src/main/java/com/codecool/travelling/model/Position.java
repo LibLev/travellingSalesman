@@ -45,4 +45,7 @@ public class Position {
     @Transient
     @Singular("salesman")
     private Map<Salesman, STATUS> applicants = new HashMap<>();
+
+    @Enumerated(EnumType.ORDINAL)
+    private MATCH_LEVEL requiredMatchLevel;
 }

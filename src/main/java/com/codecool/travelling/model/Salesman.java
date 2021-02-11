@@ -75,8 +75,9 @@ public class Salesman{
     private Set<String> roles = new HashSet<>();
 
     @Enumerated(EnumType.ORDINAL)
-    private MATCH_LEVEL match_level;
+    private MATCH_LEVEL matchLevel;
 
     @JsonIgnore
-    private transient Personality personality;
+    @OneToOne(mappedBy = "salesman", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Personality personality;
 }
