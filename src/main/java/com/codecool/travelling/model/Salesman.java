@@ -77,7 +77,10 @@ public class Salesman{
     @Enumerated(EnumType.ORDINAL)
     private MATCH_LEVEL matchLevel;
 
+
+    @OneToOne(mappedBy = "salesman", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    @OneToOne(mappedBy = "salesman", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Personality personality;
 }

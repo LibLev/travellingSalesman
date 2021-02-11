@@ -3,6 +3,7 @@ package com.codecool.travelling;
 
 import com.codecool.travelling.model.*;
 import com.codecool.travelling.repository.CompanyRepository;
+import com.codecool.travelling.repository.PersonalityRepository;
 import com.codecool.travelling.repository.PositionRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
 import com.codecool.travelling.service.PersonalityService;
@@ -26,22 +27,23 @@ public class DataInitializer implements CommandLineRunner {
     private final CompanyRepository companyRepository;
     private final PositionRepository positionRepository;
     private final PersonalityService personalityService;
+    private final PersonalityRepository personalityRepository;
     private final PositionService positionService;
 
-    public DataInitializer(PositionService positionService,PersonalityService personalityService,PositionRepository positionRepository,SalesmanRepository salesmanRepository, CompanyRepository companyRepository) {
+    public DataInitializer(PersonalityRepository personalityRepository,PositionService positionService,PersonalityService personalityService,PositionRepository positionRepository,SalesmanRepository salesmanRepository, CompanyRepository companyRepository) {
         this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         this.salesmanRepository = salesmanRepository;
         this.companyRepository = companyRepository;
         this.positionRepository = positionRepository;
         this.personalityService = personalityService;
         this.positionService = positionService;
+        this.personalityRepository = personalityRepository;
     }
 
     @Override
     public void run(String... args) {
 
         Personality salesmanPersonality = Personality.builder()
-
                 .energyLevel(6)
                 .assertiveness(7)
                 .socialContacts(7)
@@ -62,7 +64,6 @@ public class DataInitializer implements CommandLineRunner {
                 .mechanical(7)
                 .entrepreneurship(1)
                 .humanityFocus(3)
-
                 .build();
 
         Salesman SF = Salesman.builder()
@@ -89,7 +90,7 @@ public class DataInitializer implements CommandLineRunner {
                 .password(passwordEncoder.encode("password"))
                 .roles(Collections.singleton( "SALESMAN"))
                 .build();
-        //salesmanPersonality.setSalesman(SF);
+        salesmanPersonality.setSalesman(SF);
         salesmanRepository.save(SF);
 
         log.info(salesmanRepository.findByUsername("SF").get().toString());
