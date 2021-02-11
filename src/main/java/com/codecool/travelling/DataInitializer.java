@@ -90,8 +90,6 @@ public class DataInitializer implements CommandLineRunner {
         salesmanPersonality.setSalesman(SF);
         salesmanRepository.save(SF);
 
-        log.info(salesmanRepository.findByUsername("SF").get().toString());
-
         //perfect match GZ
 
         Company KC = Company.builder()
@@ -172,7 +170,6 @@ public class DataInitializer implements CommandLineRunner {
         perfectPersonality.setSalesman(GZ);
         salesmanRepository.save(GZ);
 
-        log.info(salesmanRepository.findByUsername("GZ").get().toString());
 
 //Recomended match TI
 
@@ -255,7 +252,6 @@ public class DataInitializer implements CommandLineRunner {
         recommendedPersonality.setSalesman(TI);
         salesmanRepository.save(TI);
 
-        log.info(salesmanRepository.findByUsername("TI").get().toString());
 
 //acceptable match JV
 
@@ -365,7 +361,6 @@ public class DataInitializer implements CommandLineRunner {
         acceptablePersonality.setSalesman(JV);
         salesmanRepository.save(JV);
 
-        log.info(salesmanRepository.findByUsername("JV").get().toString());
 
 //not-recommended match GZ
 
@@ -419,7 +414,7 @@ public class DataInitializer implements CommandLineRunner {
         notRecommendedPersonality.setSalesman(GB);
         salesmanRepository.save(GB);
 
-        log.info(salesmanRepository.findByUsername("GB").get().toString());
+
 
 
 
@@ -428,6 +423,13 @@ public class DataInitializer implements CommandLineRunner {
         personalityService.matchPersonToRole(JV);
         personalityService.matchPersonToRole(TI);
         personalityService.matchPersonToRole(GZ);
+
+        log.info(salesmanRepository.findByUsername("SF").get().toString());
+        log.info(salesmanRepository.findByUsername("JV").get().toString());
+        log.info(salesmanRepository.findByUsername("TI").get().toString());
+        log.info(salesmanRepository.findByUsername("GZ").get().toString());
+        log.info(salesmanRepository.findByUsername("GB").get().toString());
+
         personalityService.matchPersonToPositionsBasedOnPersonality(SF);
 
     }

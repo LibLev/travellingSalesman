@@ -230,18 +230,12 @@ public class PersonalityService {
         for (Position position: positions) {
             if (position.getRequiredMatchLevel().equals(MATCH_LEVEL.NOT_RECOMMENDED)){
                 matchingPositionsList.add(position);
-            }else if ((position.getRequiredMatchLevel()).equals(MATCH_LEVEL.ACCEPTABLE)) {
-                if (!matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED)) {
+            }else if ((position.getRequiredMatchLevel()).equals(MATCH_LEVEL.ACCEPTABLE) && !matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED)) {
                     matchingPositionsList.add(position);
-                }
-            } else if ((position.getRequiredMatchLevel()).equals(MATCH_LEVEL.RECOMMENDED)) {
-                if (!matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED) || !matchLevel.equals(MATCH_LEVEL.ACCEPTABLE)) {
+            } else if ((position.getRequiredMatchLevel()).equals(MATCH_LEVEL.RECOMMENDED) && !matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED) || !matchLevel.equals(MATCH_LEVEL.ACCEPTABLE)) {
                     matchingPositionsList.add(position);
-                }
             } else {
-                if (matchLevel.equals(MATCH_LEVEL.PERFECT)) {
                     matchingPositionsList.add(position);
-                }
             }
         }
         log.info("MATCHING_POSITION:" + matchingPositionsList);
