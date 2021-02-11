@@ -29,7 +29,7 @@ public class Personality {
     private final int personalityTraitItems = 9;
     private final int personalityFocusItems = 3;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     private Salesman salesman;
 
 }
