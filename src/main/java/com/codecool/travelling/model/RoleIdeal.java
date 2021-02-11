@@ -7,10 +7,9 @@ import javax.validation.constraints.NotNull;
 
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class RoleIdeals {
+public class RoleIdeal {
 
 
     private final int[] studyIndex = {6,7,8, 9};

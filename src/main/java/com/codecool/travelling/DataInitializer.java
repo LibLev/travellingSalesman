@@ -41,26 +41,28 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) {
 
         Personality salesmanPersonality = Personality.builder()
-                .adaptability(7)
+
+                .energyLevel(6)
                 .assertiveness(7)
-                .attitude(7)
-                .calculation(7)
-                .compliance(7)
-                .creativity(7)
-                .decisionMaking(7)
-                .energyLevel(7)
-                .entrepreneurship(7)
-                .humanityFocus(7)
-                .independence(7)
-                .numberComprehension(7)
-                .objectiveDecisionMaking(7)
-                .readingLiteracy(7)
                 .socialContacts(7)
+                .compliance(8)  //szabálykövetés
+                .attitude(7)  //hozzáállás
+                .decisionMaking(8)
+                .adaptability(7) // alkalmazkodás
+                .independence(6)
+                .objectiveDecisionMaking(8)
                 .studyIndex(7)
                 .vocabulary(7)
+                .readingLiteracy(7)
+                .numberComprehension(7)
+                .calculation(7)
+                .creativity(2)
                 .administrative(7)
                 .scientificProfessional(7)
                 .mechanical(7)
+                .entrepreneurship(1)
+                .humanityFocus(3)
+
                 .build();
 
         Salesman SF = Salesman.builder()
@@ -144,7 +146,7 @@ public class DataInitializer implements CommandLineRunner {
 
 
 
-        log.info(personalityService.getAllMatchingPositions(SF.getPersonality()).toString());
+        log.info(personalityService.matchPersonToRole(SF.getPersonality()).toString());
 
     }
 }
