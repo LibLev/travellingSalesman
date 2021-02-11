@@ -1,16 +1,15 @@
 package com.codecool.travelling.service;
 
 import com.codecool.travelling.model.Company;
+import com.codecool.travelling.model.MATCH_LEVEL;
 import com.codecool.travelling.model.Position;
+import com.codecool.travelling.model.Salesman;
 import com.codecool.travelling.repository.CompanyRepository;
 import com.codecool.travelling.repository.PositionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -18,6 +17,7 @@ public class PositionService {
 
     private PositionRepository positionRepository;
     private CompanyRepository companyRepository;
+    private PersonalityService personalityService;
 
 
     public void createNewPosition(Position data) {
@@ -30,5 +30,14 @@ public class PositionService {
                 .personality(data.getPersonality())
                 .build();
         positionRepository.save(newRegistration);
+    }
+
+    public List<Position> matchPersonToPositionBasedOnPersonality(Salesman salesman) {
+        List<Position> matchingPositions = new ArrayList<>();
+        Optional<MATCH_LEVEL> matchLevel = Optional.of(personalityService.matchPersonToRole(salesman.getPersonality()).get());
+
+
+
+        return matchingPositions;
     }
 }
