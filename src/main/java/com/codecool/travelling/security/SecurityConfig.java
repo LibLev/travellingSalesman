@@ -49,10 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/**").permitAll() // allowed by anyone
                 .antMatchers("/registration/**").permitAll() // allowed by anyone
                 .antMatchers("/position/**").permitAll() // allowed by anyone
-                .antMatchers("/position/add-position").hasRole("COMPANY") // allowed if signed in with COMPANY role
+                .antMatchers("/position/add-position").hasRole("ADMIN") // allowed if signed in with COMPANY role
                 .antMatchers("/salesman/**").permitAll() //allowed by anyone
-                .antMatchers("/personality/match-person-to-role/**").hasRole("SALESMAN") //allowed if signed in as SALESMAN
-                .antMatchers("/personality/get-all-matching-position/**").hasRole("SALESMAN") //allowed if signed in as SALESMAN
+                //.antMatchers("/personality/match-person-to-role/**").hasRole("USER") //allowed if signed in as SALESMAN
+                //.antMatchers("/personality/get-all-matching-position/**").hasRole("USER") //allowed if signed in as SALESMAN
+                .antMatchers("/personality/get-all-matching-position/**").permitAll() //allowed if signed in as SALESMAN
                 .anyRequest().denyAll() // anything else is denied; this is a safeguard in case we left something out.
                 .and()
                 // Here we define our custom filter that uses the JWT tokens for authentication.
