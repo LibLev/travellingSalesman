@@ -178,7 +178,7 @@ public class DataInitializer implements CommandLineRunner {
 
         Company CC = Company.builder()
                 .username("CC")
-                .nameOfCompany("Company Company")
+                .nameOfCompany("Callback Company")
                 .country("Hungary")
                 .county("Pest")
                 .postcode(1011)
