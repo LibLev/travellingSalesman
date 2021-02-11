@@ -46,10 +46,10 @@ public class DataInitializer implements CommandLineRunner {
                 .socialContacts(7)
                 .compliance(8)  //szabálykövetés
                 .attitude(7)  //hozzáállás
-                .decisionMaking(8)
+                .decisionMaking(7)
                 .adaptability(7) // alkalmazkodás
                 .independence(6)
-                .objectiveDecisionMaking(8)
+                .objectiveDecisionMaking(7)
                 .studyIndex(7)
                 .vocabulary(7)
                 .readingLiteracy(7)
