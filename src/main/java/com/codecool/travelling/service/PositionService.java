@@ -35,7 +35,7 @@ public class PositionService {
 
     public List<Position> matchPersonToPositionBasedOnPersonality(Salesman salesman) {
         List<Position> matchingPositions = new ArrayList<>();
-        Optional<MATCH_LEVEL> matchLevel = Optional.of(personalityService.matchPersonToRole(salesman.getPersonality()).get());
+        MATCH_LEVEL matchLevel = salesman.getMatch_level();
 
 
 

@@ -74,6 +74,9 @@ public class Salesman{
     @Builder.Default
     private Set<String> roles = new HashSet<>();
 
+    @Enumerated(EnumType.ORDINAL)
+    private MATCH_LEVEL match_level;
+
     @JsonIgnore
     private transient Personality personality;
 }

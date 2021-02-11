@@ -186,16 +186,16 @@ public class PersonalityService {
      * If anything is in the good, it can only be acceptable.
      * Same rule applies
      *
-     * @param salesPersonality
+     * @param salesman
      * @return MATCH_LEVEL
      */
 
-    public Optional<MATCH_LEVEL> matchPersonToRole (Personality salesPersonality) {
+    public Optional<MATCH_LEVEL> matchPersonToRole (Salesman salesman) {
 
         Optional<MATCH_LEVEL> matchLevel = Optional.empty();
-        MATCH_LEVEL skillsMatch = isSkillRecommendedSkills(calculateDifferenceForSkill(salesPersonality));
-        MATCH_LEVEL traitMatch = isSkillRecommendedTraits(calculateDifferenceForPersonalityTrait(salesPersonality));
-        MATCH_LEVEL focusMatch = isSkillRecommendedFocus(salesPersonality);
+        MATCH_LEVEL skillsMatch = isSkillRecommendedSkills(calculateDifferenceForSkill(salesman.getPersonality()));
+        MATCH_LEVEL traitMatch = isSkillRecommendedTraits(calculateDifferenceForPersonalityTrait(salesman.getPersonality()));
+        MATCH_LEVEL focusMatch = isSkillRecommendedFocus(salesman.getPersonality());
 
         if (skillsMatch == MATCH_LEVEL.NOT_RECOMMENDED || traitMatch == MATCH_LEVEL.NOT_RECOMMENDED
                 || focusMatch == MATCH_LEVEL.NOT_RECOMMENDED) {
@@ -217,6 +217,7 @@ public class PersonalityService {
             matchLevel = Optional.of(MATCH_LEVEL.PERFECT);
             return matchLevel;
         }
+        salesman.setMatch_level(matchLevel.get());
         return matchLevel;
 
      }
