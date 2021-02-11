@@ -27,7 +27,6 @@ public class PositionService {
                 .city(data.getCity())
                 .salary(data.getSalary())
                 .requirements(data.getRequirements())
-                .personality(data.getPersonality())
                 .build();
         positionRepository.save(newRegistration);
     }
@@ -38,24 +37,23 @@ public class PositionService {
         MATCH_LEVEL matchLevel = salesman.getMatchLevel();
 
         List<Position> positions = positionRepository.findAll();
-        ListIterator<Position> allPositions = positions.listIterator();
-        while (allPositions.hasNext()) {
-            if ((allPositions.next().getRequiredMatchLevel()).equals(MATCH_LEVEL.NOT_RECOMMENDED)) {
-                matchingPositionsList.add(allPositions.next());
+        for (Position position: positions) {
+            if (position.getRequiredMatchLevel().equals(MATCH_LEVEL.NOT_RECOMMENDED)){
+                matchingPositionsList.add(position);
                 break;
-            } else if ((allPositions.next().getRequiredMatchLevel()).equals(MATCH_LEVEL.ACCEPTABLE)) {
+            }else if ((position.getRequiredMatchLevel()).equals(MATCH_LEVEL.ACCEPTABLE)) {
                 if (!matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED)) {
-                    matchingPositionsList.add(allPositions.next());
+                    matchingPositionsList.add(position);
                     break;
                 }
-            } else if ((allPositions.next().getRequiredMatchLevel()).equals(MATCH_LEVEL.RECOMMENDED)) {
+            } else if ((position.getRequiredMatchLevel()).equals(MATCH_LEVEL.RECOMMENDED)) {
                 if (!matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED) || !matchLevel.equals(MATCH_LEVEL.ACCEPTABLE)) {
-                    matchingPositionsList.add(allPositions.next());
+                    matchingPositionsList.add(position);
                     break;
                 }
             } else {
                 if (matchLevel.equals(MATCH_LEVEL.PERFECT)) {
-                    matchingPositionsList.add(allPositions.next());
+                    matchingPositionsList.add(position);
                     break;
                 }
             }

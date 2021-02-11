@@ -113,44 +113,20 @@ public class DataInitializer implements CommandLineRunner {
                 .build();
         companyRepository.save(CC);
 
-        Personality requiredPersonality = Personality.builder()
-                .adaptability(7)
-                .assertiveness(7)
-                .attitude(7)
-                .calculation(7)
-                .compliance(7)
-                .creativity(7)
-                .decisionMaking(7)
-                .energyLevel(7)
-                .entrepreneurship(7)
-                .humanityFocus(7)
-                .independence(7)
-                .numberComprehension(7)
-                .objectiveDecisionMaking(7)
-                .readingLiteracy(7)
-                .socialContacts(7)
-                .studyIndex(7)
-                .vocabulary(7)
-                .administrative(7)
-                .scientificProfessional(7)
-                .mechanical(7)
-                .build();
-
         Position newPosition = Position.builder()
                 .company(CC)
                 .nameOfPosition("Autó értékesítő")
                 .city("Budapest")
                 .salary(350000)
-                .requiredMatchLevel(MATCH_LEVEL.PERFECT)
+                .requiredMatchLevel(MATCH_LEVEL.RECOMMENDED)
                 .requirements(Arrays.asList("Kommunikatív", "Terhelhető", "Kreatív"))
-                .personality(requiredPersonality)
                 .build();
         positionRepository.save(newPosition);
 
 
 
         log.info(personalityService.matchPersonToRole(SF).toString());
-        //log.info(positionService.matchPersonToPositionBasedOnPersonality(SF).toString());
+        positionService.matchPersonToPositionBasedOnPersonality(SF);
 
     }
 }

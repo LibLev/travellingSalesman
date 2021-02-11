@@ -28,8 +28,6 @@ public class Position {
     @NotNull
     private float salary;
 
-    @JsonIgnore
-    private transient Personality personality;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Singular
