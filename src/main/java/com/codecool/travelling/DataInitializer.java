@@ -424,6 +424,10 @@ public class DataInitializer implements CommandLineRunner {
 
 
         personalityService.matchPersonToRole(SF);
+        personalityService.matchPersonToRole(GB);
+        personalityService.matchPersonToRole(JV);
+        personalityService.matchPersonToRole(TI);
+        personalityService.matchPersonToRole(GZ);
         personalityService.matchPersonToPositionsBasedOnPersonality(SF);
 
     }
