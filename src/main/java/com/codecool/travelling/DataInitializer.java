@@ -125,8 +125,8 @@ public class DataInitializer implements CommandLineRunner {
 
 
 
-        log.info(personalityService.matchPersonToRole(SF).toString());
-        positionService.matchPersonToPositionBasedOnPersonality(SF);
+        personalityService.matchPersonToRole(SF);
+        personalityService.matchPersonToPositionsBasedOnPersonality(SF);
 
     }
 }

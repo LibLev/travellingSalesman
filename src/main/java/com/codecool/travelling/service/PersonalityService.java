@@ -1,54 +1,24 @@
 package com.codecool.travelling.service;
 
 import com.codecool.travelling.model.*;
-import com.codecool.travelling.repository.CompanyRepository;
 import com.codecool.travelling.repository.PositionRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.IntStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class PersonalityService {
 
     private SalesmanRepository salesmanRepository;
-    private CompanyRepository companyRepository;
     private PositionRepository positionRepository;
-
-
     private RoleIdeal roleIdeal;
-
-    private final int[] studyIndex = {6, 7, 8, 9};
-    private final int[] vocabulary = {6, 7, 8};
-    private final int[] readingLiteracy = {7, 8, 9};
-    private final int[] calculation = {6, 7, 8};
-    private final int[] numberComprehension = {7, 8, 9};
-
-    private final int[] energyLevel = {6, 7, 8};
-    private final int[] assertiveness = {7, 8, 9};
-    private final int[] socialContacts = {5, 6, 7};
-    private final int[] compliance = {6, 7, 8};
-    private final int[] attitude = {7, 8, 9};
-    private final int[] decisionMaking = {5, 6, 7};
-    private final int[] adaptability = {5, 6, 7};
-    private final int[] independence = {4, 5, 6};
-    private final int[] objectiveDecisionMaking = {5, 6, 7};
-
-    private final int entrepreneurship = 1;
-    private final int creativity = 2;
-    private final int humanityFocus = 3;
-    private final int mechanical = 6;
-    private final int scientificProfessional = 6;
-    private final int administrative = 6;
-
-
-    private final int skillsItems = 5;
-    private final int personalityTraitItems = 9;
-    private final int personalityFocusItems = 6;
-
 
     /**
      * Three personality traits:
@@ -204,26 +174,16 @@ public class PersonalityService {
         if (skillsMatch == MATCH_LEVEL.ACCEPTABLE || traitMatch == MATCH_LEVEL.ACCEPTABLE
                 || focusMatch == MATCH_LEVEL.ACCEPTABLE) {
             matchLevel = MATCH_LEVEL.ACCEPTABLE;
-            salesman.setMatchLevel(matchLevel);
-            salesmanRepository.save(salesman);
-            return matchLevel;
-
         } else if (skillsMatch == MATCH_LEVEL.RECOMMENDED || traitMatch == MATCH_LEVEL.RECOMMENDED
                 || focusMatch == MATCH_LEVEL.RECOMMENDED) {
             matchLevel = MATCH_LEVEL.RECOMMENDED;
-            salesman.setMatchLevel(matchLevel);
-            salesmanRepository.save(salesman);
-            return matchLevel;
-
         } else if (skillsMatch == MATCH_LEVEL.PERFECT || traitMatch == MATCH_LEVEL.PERFECT
                 || focusMatch == MATCH_LEVEL.PERFECT) {
             matchLevel = MATCH_LEVEL.PERFECT;
-            salesman.setMatchLevel(matchLevel);
-            salesmanRepository.save(salesman);
-            return matchLevel;
         }
         salesman.setMatchLevel(matchLevel);
         salesmanRepository.save(salesman);
+        log.info("MATCH LEVEL IS: " + salesman.getMatchLevel());
         return matchLevel;
 
     }
@@ -260,6 +220,37 @@ public class PersonalityService {
     /** cummulative matching
      *
      */
+
+    public List<Position> matchPersonToPositionsBasedOnPersonality(Salesman salesman) {
+        List<Position> matchingPositionsList = new ArrayList<>();
+
+        MATCH_LEVEL matchLevel = salesman.getMatchLevel();
+
+        List<Position> positions = positionRepository.findAll();
+        for (Position position: positions) {
+            if (position.getRequiredMatchLevel().equals(MATCH_LEVEL.NOT_RECOMMENDED)){
+                matchingPositionsList.add(position);
+                break;
+            }else if ((position.getRequiredMatchLevel()).equals(MATCH_LEVEL.ACCEPTABLE)) {
+                if (!matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED)) {
+                    matchingPositionsList.add(position);
+                    break;
+                }
+            } else if ((position.getRequiredMatchLevel()).equals(MATCH_LEVEL.RECOMMENDED)) {
+                if (!matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED) || !matchLevel.equals(MATCH_LEVEL.ACCEPTABLE)) {
+                    matchingPositionsList.add(position);
+                    break;
+                }
+            } else {
+                if (matchLevel.equals(MATCH_LEVEL.PERFECT)) {
+                    matchingPositionsList.add(position);
+                    break;
+                }
+            }
+        }
+        log.info("MATCHING_POSITION:" + matchingPositionsList);
+        return matchingPositionsList;
+    }
 
 }
 
