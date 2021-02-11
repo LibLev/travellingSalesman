@@ -7,6 +7,8 @@ import com.codecool.travelling.repository.PositionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,15 +20,14 @@ public class PositionService {
     private CompanyRepository companyRepository;
 
 
-    public void createNewPosition(Map<String, String> data) {
-        Company company = companyRepository.findById(UUID.fromString(data.get("companyId"))).get();
+    public void createNewPosition(Position data) {
         Position newRegistration = Position.builder()
-                .company(company)
-                .nameOfPosition(data.get("nameOfPosition"))
-                .city(data.get("city"))
-                .salary(Float.parseFloat(data.get("salary")))
-//                .requirements(data.get("requirements"))
-//                .applicant(data.get("applicant"))
+                .company(data.getCompany())
+                .nameOfPosition(data.getNameOfPosition())
+                .city(data.getCity())
+                .salary(data.getSalary())
+                .requirements(data.getRequirements())
+                .personality(data.getPersonality())
                 .build();
         positionRepository.save(newRegistration);
     }

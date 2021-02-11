@@ -1,9 +1,7 @@
 package com.codecool.travelling.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -30,7 +28,21 @@ public class Position {
     @NotNull
     private float salary;
 
-    //private List<String> requirements = new ArrayList<>();
+    @JsonIgnore
+    private transient Personality personality;
 
-    //private Map<Salesman, STATUS> applicants = new HashMap<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Singular
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
+    private List<String> requirements = new ArrayList<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
+    @Transient
+    @Singular("salesman")
+    private Map<Salesman, STATUS> applicants = new HashMap<>();
 }
