@@ -230,21 +230,17 @@ public class PersonalityService {
         for (Position position: positions) {
             if (position.getRequiredMatchLevel().equals(MATCH_LEVEL.NOT_RECOMMENDED)){
                 matchingPositionsList.add(position);
-                break;
             }else if ((position.getRequiredMatchLevel()).equals(MATCH_LEVEL.ACCEPTABLE)) {
                 if (!matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED)) {
                     matchingPositionsList.add(position);
-                    break;
                 }
             } else if ((position.getRequiredMatchLevel()).equals(MATCH_LEVEL.RECOMMENDED)) {
                 if (!matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED) || !matchLevel.equals(MATCH_LEVEL.ACCEPTABLE)) {
                     matchingPositionsList.add(position);
-                    break;
                 }
             } else {
                 if (matchLevel.equals(MATCH_LEVEL.PERFECT)) {
                     matchingPositionsList.add(position);
-                    break;
                 }
             }
         }
