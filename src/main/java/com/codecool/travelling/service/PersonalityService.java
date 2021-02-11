@@ -205,21 +205,25 @@ public class PersonalityService {
                 || focusMatch == MATCH_LEVEL.ACCEPTABLE) {
             matchLevel = MATCH_LEVEL.ACCEPTABLE;
             salesman.setMatchLevel(matchLevel);
+            salesmanRepository.save(salesman);
             return matchLevel;
 
         } else if (skillsMatch == MATCH_LEVEL.RECOMMENDED || traitMatch == MATCH_LEVEL.RECOMMENDED
                 || focusMatch == MATCH_LEVEL.RECOMMENDED) {
             matchLevel = MATCH_LEVEL.RECOMMENDED;
             salesman.setMatchLevel(matchLevel);
+            salesmanRepository.save(salesman);
             return matchLevel;
 
         } else if (skillsMatch == MATCH_LEVEL.PERFECT || traitMatch == MATCH_LEVEL.PERFECT
                 || focusMatch == MATCH_LEVEL.PERFECT) {
             matchLevel = MATCH_LEVEL.PERFECT;
             salesman.setMatchLevel(matchLevel);
+            salesmanRepository.save(salesman);
             return matchLevel;
         }
         salesman.setMatchLevel(matchLevel);
+        salesmanRepository.save(salesman);
         return matchLevel;
 
     }
