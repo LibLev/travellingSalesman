@@ -1,6 +1,5 @@
 package com.codecool.travelling.service;
 
-import com.codecool.travelling.model.Company;
 import com.codecool.travelling.model.MATCH_LEVEL;
 import com.codecool.travelling.model.Position;
 import com.codecool.travelling.model.Salesman;
@@ -9,7 +8,9 @@ import com.codecool.travelling.repository.PositionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor

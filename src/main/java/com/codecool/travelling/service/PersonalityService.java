@@ -17,7 +17,10 @@ public class PersonalityService {
     private SalesmanRepository salesmanRepository;
     private CompanyRepository companyRepository;
     private PositionRepository positionRepository;
-    //private RoleIdeal roleIdeal;
+
+
+    private RoleIdeal roleIdeal;
+
     private final int[] studyIndex = {6,7,8, 9};
     private final int[] vocabulary = {6, 7, 8};
     private final int[] readingLiteracy = {7, 8, 9};
@@ -70,9 +73,9 @@ public class PersonalityService {
      * @return
      */
 
-    private int calculateSingleDifference(int valueToCheck, int[] permittedRange) {
-        int max = IntStream.of(permittedRange).max().orElse(Integer.MIN_VALUE);
-        int min = IntStream.of(permittedRange).min().orElse(Integer.MAX_VALUE);
+    private int calculateSingleDifference(int valueToCheck, List<Integer> permittedRange) {
+        int max = permittedRange.stream().mapToInt(n -> n).max().orElse(Integer.MIN_VALUE);
+        int min = permittedRange.stream().mapToInt(n -> n).min().orElse(Integer.MAX_VALUE);
         return (valueToCheck >= min && valueToCheck <= max)
                 ? 0
                 : Math.min(Math.abs(valueToCheck-min), Math.abs(valueToCheck-max));
@@ -88,11 +91,11 @@ public class PersonalityService {
 
     private int[] calculateDifferenceForSkill(Personality salesman) {
         int[] skillDifference = new int[salesman.getSkillsItems()];
-        skillDifference[0] = calculateSingleDifference(salesman.getStudyIndex(), studyIndex);
-        skillDifference[1] = calculateSingleDifference(salesman.getVocabulary(), vocabulary);
-        skillDifference[2] = calculateSingleDifference(salesman.getReadingLiteracy(), readingLiteracy);
-        skillDifference[3] = calculateSingleDifference(salesman.getCalculation(), calculation);
-        skillDifference[4] = calculateSingleDifference(salesman.getNumberComprehension(), numberComprehension);
+        skillDifference[0] = calculateSingleDifference(salesman.getStudyIndex(), roleIdeal.getStudyIndex());
+        skillDifference[1] = calculateSingleDifference(salesman.getVocabulary(), roleIdeal.getVocabulary());
+        skillDifference[2] = calculateSingleDifference(salesman.getReadingLiteracy(), roleIdeal.getReadingLiteracy());
+        skillDifference[3] = calculateSingleDifference(salesman.getCalculation(), roleIdeal.getCalculation());
+        skillDifference[4] = calculateSingleDifference(salesman.getNumberComprehension(), roleIdeal.getNumberComprehension());
         return skillDifference;
     }
 
@@ -105,15 +108,15 @@ public class PersonalityService {
 
     private int[] calculateDifferenceForPersonalityTrait(Personality salesman) {
         int[] skillDifference = new int[salesman.getPersonalityTraitItems()];
-        skillDifference[0] = calculateSingleDifference(salesman.getEnergyLevel(), energyLevel);
-        skillDifference[1] = calculateSingleDifference(salesman.getAssertiveness(), assertiveness);
-        skillDifference[2] = calculateSingleDifference(salesman.getSocialContacts(), socialContacts);
-        skillDifference[3] = calculateSingleDifference(salesman.getCompliance(), compliance);
-        skillDifference[4] = calculateSingleDifference(salesman.getAttitude(), attitude);
-        skillDifference[5] = calculateSingleDifference(salesman.getObjectiveDecisionMaking(), objectiveDecisionMaking);
-        skillDifference[6] = calculateSingleDifference(salesman.getDecisionMaking(), decisionMaking);
-        skillDifference[7] = calculateSingleDifference(salesman.getAdaptability(), adaptability);
-        skillDifference[8] = calculateSingleDifference(salesman.getIndependence(), independence);
+        skillDifference[0] = calculateSingleDifference(salesman.getEnergyLevel(), roleIdeal.getEnergyLevel());
+        skillDifference[1] = calculateSingleDifference(salesman.getAssertiveness(), roleIdeal.getAssertiveness());
+        skillDifference[2] = calculateSingleDifference(salesman.getSocialContacts(), roleIdeal.getSocialContacts());
+        skillDifference[3] = calculateSingleDifference(salesman.getCompliance(), roleIdeal.getCompliance());
+        skillDifference[4] = calculateSingleDifference(salesman.getAttitude(), roleIdeal.getAttitude());
+        skillDifference[5] = calculateSingleDifference(salesman.getObjectiveDecisionMaking(), roleIdeal.getObjectiveDecisionMaking());
+        skillDifference[6] = calculateSingleDifference(salesman.getDecisionMaking(), roleIdeal.getDecisionMaking());
+        skillDifference[7] = calculateSingleDifference(salesman.getAdaptability(), roleIdeal.getAdaptability());
+        skillDifference[8] = calculateSingleDifference(salesman.getIndependence(), roleIdeal.getIndependence());
         return skillDifference;
     }
 
