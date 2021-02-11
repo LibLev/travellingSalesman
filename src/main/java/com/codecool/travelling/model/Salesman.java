@@ -74,6 +74,13 @@ public class Salesman{
     @Builder.Default
     private Set<String> roles = new HashSet<>();
 
+    @Enumerated(EnumType.ORDINAL)
+    private MATCH_LEVEL matchLevel;
+
+
+    @OneToOne(mappedBy = "salesman", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    private transient Personality personality;
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Personality personality;
 }

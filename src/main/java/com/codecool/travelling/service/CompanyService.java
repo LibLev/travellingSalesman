@@ -36,8 +36,8 @@ public class CompanyService {
                 .email(data.get("email"))
                 .dateOfFoundation(LocalDate.parse(data.get("dateOfFoundation")))
                 .taxNumber(data.get("taxNumber"))
-                .roles(Collections.singleton("ROLE_USER"))
-                .roles(Collections.singleton("COMPANY"))
+                .roles(Collections.singleton("ROLE_ADMIN"))
+                //.roles(Collections.singleton("COMPANY"))
                 .password(passwordEncoder.encode(data.get("password")))
                 .build();
         companyRepository.save(newRegistration);

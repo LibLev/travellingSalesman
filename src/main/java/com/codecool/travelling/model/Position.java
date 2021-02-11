@@ -28,8 +28,6 @@ public class Position {
     @NotNull
     private float salary;
 
-    @JsonIgnore
-    private transient Personality personality;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Singular
@@ -45,4 +43,7 @@ public class Position {
     @Transient
     @Singular("salesman")
     private Map<Salesman, STATUS> applicants = new HashMap<>();
+
+    @Enumerated(EnumType.ORDINAL)
+    private MATCH_LEVEL requiredMatchLevel;
 }
