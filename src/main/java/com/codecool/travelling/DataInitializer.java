@@ -46,10 +46,10 @@ public class DataInitializer implements CommandLineRunner {
                 .socialContacts(7)
                 .compliance(8)  //szabálykövetés
                 .attitude(7)  //hozzáállás
-                .decisionMaking(8)
+                .decisionMaking(7)
                 .adaptability(7) // alkalmazkodás
                 .independence(6)
-                .objectiveDecisionMaking(8)
+                .objectiveDecisionMaking(7)
                 .studyIndex(7)
                 .vocabulary(7)
                 .readingLiteracy(7)
@@ -85,12 +85,10 @@ public class DataInitializer implements CommandLineRunner {
                 .drivingLicense(true)
                 .personality(salesmanPersonality)
                 .password(passwordEncoder.encode("password"))
-                .roles(Collections.singleton( "SALESMAN"))
+                .roles(Collections.singleton( "ROLE_SALESMAN"))
                 .build();
         salesmanPersonality.setSalesman(SF);
         salesmanRepository.save(SF);
-
-        log.info(salesmanRepository.findByUsername("SF").get().toString());
 
         //perfect match GZ
 
@@ -107,7 +105,7 @@ public class DataInitializer implements CommandLineRunner {
                 .email("company.company2@kamu.hu")
                 .dateOfFoundation(LocalDate.parse("2000-01-01"))
                 .taxNumber("123456-3-89")
-                .roles(Collections.singleton("COMPANY"))
+                .roles(Collections.singleton("ROLE_COMPANY"))
                 .password(passwordEncoder.encode("password"))
                 .build();
         companyRepository.save(KC);
@@ -131,12 +129,12 @@ public class DataInitializer implements CommandLineRunner {
                 .decisionMaking(7)
                 .adaptability(7) // alkalmazkodás
                 .independence(6)
-                .objectiveDecisionMaking(8)
+                .objectiveDecisionMaking(7)
                 .studyIndex(7)
                 .vocabulary(7)
                 .readingLiteracy(7)
-                .numberComprehension(7)
-                .calculation(7)
+                .numberComprehension(8)
+                .calculation(6)
                 .creativity(2)
                 .administrative(7)
                 .scientificProfessional(7)
@@ -167,18 +165,17 @@ public class DataInitializer implements CommandLineRunner {
                 .drivingLicense(true)
                 .personality(perfectPersonality)
                 .password(passwordEncoder.encode("password"))
-                .roles(Collections.singleton( "SALESMAN"))
+                .roles(Collections.singleton( "ROLE_SALESMAN"))
                 .build();
         perfectPersonality.setSalesman(GZ);
         salesmanRepository.save(GZ);
 
-        log.info(salesmanRepository.findByUsername("GZ").get().toString());
 
 //Recomended match TI
 
         Company CC = Company.builder()
                 .username("CC")
-                .nameOfCompany("Company Company")
+                .nameOfCompany("Callback Company")
                 .country("Hungary")
                 .county("Pest")
                 .postcode(1011)
@@ -189,7 +186,7 @@ public class DataInitializer implements CommandLineRunner {
                 .email("company.company@kamu.hu")
                 .dateOfFoundation(LocalDate.parse("2000-01-01"))
                 .taxNumber("123456-7-89")
-                .roles(Collections.singleton("COMPANY"))
+                .roles(Collections.singleton("ROLE_COMPANY"))
                 .password(passwordEncoder.encode("password"))
                 .build();
         companyRepository.save(CC);
@@ -249,13 +246,12 @@ public class DataInitializer implements CommandLineRunner {
                 .drivingLicense(false)
                 .personality(recommendedPersonality)
                 .password(passwordEncoder.encode("password"))
-                .roles(Collections.singleton( "SALESMAN"))
+                .roles(Collections.singleton( "ROLE_SALESMAN"))
                 .build();
 
         recommendedPersonality.setSalesman(TI);
         salesmanRepository.save(TI);
 
-        log.info(salesmanRepository.findByUsername("TI").get().toString());
 
 //acceptable match JV
 
@@ -272,7 +268,7 @@ public class DataInitializer implements CommandLineRunner {
                 .email("company.company4@kamu.hu")
                 .dateOfFoundation(LocalDate.parse("2000-01-04"))
                 .taxNumber("123116-7-22")
-                .roles(Collections.singleton("COMPANY"))
+                .roles(Collections.singleton("ROLE_COMPANY"))
                 .password(passwordEncoder.encode("password"))
                 .build();
         companyRepository.save(LC);
@@ -300,7 +296,7 @@ public class DataInitializer implements CommandLineRunner {
                 .email("company.company1@kamu.hu")
                 .dateOfFoundation(LocalDate.parse("2000-01-02"))
                 .taxNumber("123456-7-22")
-                .roles(Collections.singleton("COMPANY"))
+                .roles(Collections.singleton("ROLE_COMPANY"))
                 .password(passwordEncoder.encode("password"))
                 .build();
         companyRepository.save(BC);
@@ -360,12 +356,11 @@ public class DataInitializer implements CommandLineRunner {
                 .drivingLicense(false)
                 .personality(acceptablePersonality)
                 .password(passwordEncoder.encode("password"))
-                .roles(Collections.singleton( "SALESMAN"))
+                .roles(Collections.singleton( "ROLE_SALESMAN"))
                 .build();
         acceptablePersonality.setSalesman(JV);
         salesmanRepository.save(JV);
 
-        log.info(salesmanRepository.findByUsername("JV").get().toString());
 
 //not-recommended match GZ
 
@@ -414,16 +409,27 @@ public class DataInitializer implements CommandLineRunner {
                 .drivingLicense(true)
                 .personality(notRecommendedPersonality)
                 .password(passwordEncoder.encode("password"))
-                .roles(Collections.singleton( "SALESMAN"))
+                .roles(Collections.singleton( "ROLE_SALESMAN"))
                 .build();
         notRecommendedPersonality.setSalesman(GB);
         salesmanRepository.save(GB);
 
-        log.info(salesmanRepository.findByUsername("GB").get().toString());
+
 
 
 
         personalityService.matchPersonToRole(SF);
+        personalityService.matchPersonToRole(GB);
+        personalityService.matchPersonToRole(JV);
+        personalityService.matchPersonToRole(TI);
+        personalityService.matchPersonToRole(GZ);
+
+        log.info(salesmanRepository.findByUsername("SF").get().toString());
+        log.info(salesmanRepository.findByUsername("JV").get().toString());
+        log.info(salesmanRepository.findByUsername("TI").get().toString());
+        log.info(salesmanRepository.findByUsername("GZ").get().toString());
+        log.info(salesmanRepository.findByUsername("GB").get().toString());
+
         personalityService.matchPersonToPositionsBasedOnPersonality(SF);
 
     }

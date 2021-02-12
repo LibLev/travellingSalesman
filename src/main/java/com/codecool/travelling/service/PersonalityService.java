@@ -228,20 +228,14 @@ public class PersonalityService {
 
         List<Position> positions = positionRepository.findAll();
         for (Position position: positions) {
-            if (position.getRequiredMatchLevel().equals(MATCH_LEVEL.NOT_RECOMMENDED)){
+            if (!matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED) && (position.getRequiredMatchLevel()).equals(MATCH_LEVEL.ACCEPTABLE)) {
+                    matchingPositionsList.add(position);
+            } else if (!matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED) && !matchLevel.equals(MATCH_LEVEL.ACCEPTABLE) && position.getRequiredMatchLevel().equals(MATCH_LEVEL.RECOMMENDED)) {
+                    matchingPositionsList.add(position);
+            } else if (position.getRequiredMatchLevel().equals(MATCH_LEVEL.NOT_RECOMMENDED)){
                 matchingPositionsList.add(position);
-            }else if ((position.getRequiredMatchLevel()).equals(MATCH_LEVEL.ACCEPTABLE)) {
-                if (!matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED)) {
+            } else if (position.getRequiredMatchLevel().equals(MATCH_LEVEL.PERFECT) && matchLevel.equals(MATCH_LEVEL.PERFECT)){
                     matchingPositionsList.add(position);
-                }
-            } else if ((position.getRequiredMatchLevel()).equals(MATCH_LEVEL.RECOMMENDED)) {
-                if (!matchLevel.equals(MATCH_LEVEL.NOT_RECOMMENDED) || !matchLevel.equals(MATCH_LEVEL.ACCEPTABLE)) {
-                    matchingPositionsList.add(position);
-                }
-            } else {
-                if (matchLevel.equals(MATCH_LEVEL.PERFECT)) {
-                    matchingPositionsList.add(position);
-                }
             }
         }
         log.info("MATCHING_POSITION:" + matchingPositionsList);
@@ -249,7 +243,6 @@ public class PersonalityService {
     }
 
 }
-
 
 
 
