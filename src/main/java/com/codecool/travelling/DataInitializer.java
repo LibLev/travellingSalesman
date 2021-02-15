@@ -85,7 +85,7 @@ public class DataInitializer implements CommandLineRunner {
                 .drivingLicense(true)
                 .personality(salesmanPersonality)
                 .password(passwordEncoder.encode("password"))
-                .roles(Collections.singleton( "ROLE_SALESMAN"))
+                .roles(Collections.singleton( "ROLE_USER"))
                 .build();
         salesmanPersonality.setSalesman(SF);
         salesmanRepository.save(SF);
@@ -105,7 +105,7 @@ public class DataInitializer implements CommandLineRunner {
                 .email("company.company2@kamu.hu")
                 .dateOfFoundation(LocalDate.parse("2000-01-01"))
                 .taxNumber("123456-3-89")
-                .roles(Collections.singleton("ROLE_COMPANY"))
+                .roles(Collections.singleton("ROLE_ADMIN"))
                 .password(passwordEncoder.encode("password"))
                 .build();
         companyRepository.save(KC);
@@ -165,7 +165,7 @@ public class DataInitializer implements CommandLineRunner {
                 .drivingLicense(true)
                 .personality(perfectPersonality)
                 .password(passwordEncoder.encode("password"))
-                .roles(Collections.singleton( "ROLE_SALESMAN"))
+                .roles(Collections.singleton( "ROLE_USER"))
                 .build();
         perfectPersonality.setSalesman(GZ);
         salesmanRepository.save(GZ);
@@ -186,7 +186,7 @@ public class DataInitializer implements CommandLineRunner {
                 .email("company.company@kamu.hu")
                 .dateOfFoundation(LocalDate.parse("2000-01-01"))
                 .taxNumber("123456-7-89")
-                .roles(Collections.singleton("ROLE_COMPANY"))
+                .roles(Collections.singleton("ROLE_ADMIN"))
                 .password(passwordEncoder.encode("password"))
                 .build();
         companyRepository.save(CC);
@@ -246,7 +246,7 @@ public class DataInitializer implements CommandLineRunner {
                 .drivingLicense(false)
                 .personality(recommendedPersonality)
                 .password(passwordEncoder.encode("password"))
-                .roles(Collections.singleton( "ROLE_SALESMAN"))
+                .roles(Collections.singleton( "ROLE_USER"))
                 .build();
 
         recommendedPersonality.setSalesman(TI);
@@ -268,7 +268,7 @@ public class DataInitializer implements CommandLineRunner {
                 .email("company.company4@kamu.hu")
                 .dateOfFoundation(LocalDate.parse("2000-01-04"))
                 .taxNumber("123116-7-22")
-                .roles(Collections.singleton("ROLE_COMPANY"))
+                .roles(Collections.singleton("ROLE_ADMIN"))
                 .password(passwordEncoder.encode("password"))
                 .build();
         companyRepository.save(LC);
@@ -296,7 +296,7 @@ public class DataInitializer implements CommandLineRunner {
                 .email("company.company1@kamu.hu")
                 .dateOfFoundation(LocalDate.parse("2000-01-02"))
                 .taxNumber("123456-7-22")
-                .roles(Collections.singleton("ROLE_COMPANY"))
+                .roles(Collections.singleton("ROLE_ADMIN"))
                 .password(passwordEncoder.encode("password"))
                 .build();
         companyRepository.save(BC);
@@ -356,7 +356,7 @@ public class DataInitializer implements CommandLineRunner {
                 .drivingLicense(false)
                 .personality(acceptablePersonality)
                 .password(passwordEncoder.encode("password"))
-                .roles(Collections.singleton( "ROLE_SALESMAN"))
+                .roles(Collections.singleton( "ROLE_USER"))
                 .build();
         acceptablePersonality.setSalesman(JV);
         salesmanRepository.save(JV);
@@ -409,7 +409,7 @@ public class DataInitializer implements CommandLineRunner {
                 .drivingLicense(true)
                 .personality(notRecommendedPersonality)
                 .password(passwordEncoder.encode("password"))
-                .roles(Collections.singleton( "ROLE_SALESMAN"))
+                .roles(Collections.singleton( "ROLE_USER"))
                 .build();
         notRecommendedPersonality.setSalesman(GB);
         salesmanRepository.save(GB);
