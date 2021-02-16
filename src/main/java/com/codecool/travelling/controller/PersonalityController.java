@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,6 +26,11 @@ public class PersonalityController {
 
     private PersonalityService personalityService;
     private SalesmanRepository salesmanRepository;
+
+    @PostMapping("/add-personality-to-salesman")
+    public Personality setPersonalityToSalesman(@RequestBody Map<String, String> data){
+        return personalityService.setPersonalityToSalesman(data);
+    }
 
     @GetMapping("/match-person-to-role/{id}")
     public MATCH_LEVEL matchPersonToRole (@PathVariable UUID id){

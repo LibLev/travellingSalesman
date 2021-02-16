@@ -7,9 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -242,6 +240,34 @@ public class PersonalityService {
         return matchingPositionsList;
     }
 
+    public Personality setPersonalityToSalesman(Map<String, String> data) {
+        Salesman currentSalesman = salesmanRepository.findById(UUID.fromString(data.get("salesmanId"))).get();
+        Personality newPersonality = Personality.builder()
+                .energyLevel(Integer.parseInt(data.get("energyLevel")))
+                .assertiveness(Integer.parseInt(data.get("assertiveness")))
+                .socialContacts(Integer.parseInt(data.get("socialContacts")))
+                .compliance(Integer.parseInt(data.get("compliance"))) //szabálykövetés
+                .attitude(Integer.parseInt(data.get("attitude")))  //hozzáállás
+                .decisionMaking(Integer.parseInt(data.get("decisionMaking")))
+                .adaptability(Integer.parseInt(data.get("adaptability"))) // alkalmazkodás
+                .independence(Integer.parseInt(data.get("independence")))
+                .objectiveDecisionMaking(Integer.parseInt(data.get("objectiveDecisionMaking")))
+                .studyIndex(Integer.parseInt(data.get("studyIndex")))
+                .vocabulary(Integer.parseInt(data.get("vocabulary")))
+                .readingLiteracy(Integer.parseInt(data.get("readingLiteracy")))
+                .numberComprehension(Integer.parseInt(data.get("numberComprehension")))
+                .calculation(Integer.parseInt(data.get("calculation")))
+                .creativity(Integer.parseInt(data.get("creativity")))
+                .administrative(Integer.parseInt(data.get("administrative")))
+                .scientificProfessional(Integer.parseInt(data.get("scientificProfessional")))
+                .mechanical(Integer.parseInt(data.get("mechanical")))
+                .entrepreneurship(Integer.parseInt(data.get("entrepreneurship")))
+                .humanityFocus(Integer.parseInt(data.get("humanityFocus")))
+                .build();
+        newPersonality.setSalesman(currentSalesman);
+        salesmanRepository.save(currentSalesman);
+        return newPersonality;
+    }
 }
 
 
