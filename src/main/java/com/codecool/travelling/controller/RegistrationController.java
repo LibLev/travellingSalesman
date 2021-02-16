@@ -18,7 +18,7 @@ public class RegistrationController {
     private SalesmanService salesmanService;
     private CompanyService companyService;
 
-    @PostMapping("")
+    @PostMapping("/")
     public void registration(@RequestBody Map<String, String> data){
         String registrationType = data.get("registrationType");
         if (registrationType.equals("salesmanRegistration")){
