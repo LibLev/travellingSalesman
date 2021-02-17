@@ -79,7 +79,7 @@ public class PersonalityService {
      * @return int[] with the difference values
      */
 
-    private int[] calculateDifferenceForPersonalityTrait(Personality salesman) {
+    int[] calculateDifferenceForPersonalityTrait(Personality salesman) {
         int[] skillDifference = new int[salesman.getPersonalityTraitItems()];
         skillDifference[0] = calculateSingleDifference(salesman.getEnergyLevel(), roleIdeal.getEnergyLevel());
         skillDifference[1] = calculateSingleDifference(salesman.getAssertiveness(), roleIdeal.getAssertiveness());
