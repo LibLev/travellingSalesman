@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -29,5 +30,14 @@ public class PositionService {
 
     public List<Position> findAllPositionByCityAndPositionType(String city, String positionName) {
         return positionRepository.findAllByCityAndByNameOfPosition(city,positionName);
+    }
+
+    public void deletePosition(UUID id) {
+        positionRepository.deleteById(id);
+        if (positionRepository.findById(id).get() == null) {
+            System.out.println("DELETE WAS SUCCESSFUL");
+        }else {
+            System.out.println("POSITION IS STILL IN DB");
+        }
     }
 }
