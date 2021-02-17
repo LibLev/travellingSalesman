@@ -1,6 +1,7 @@
 package com.codecool.travelling.service;
 
 import com.codecool.travelling.model.*;
+import com.codecool.travelling.repository.PersonalityRepository;
 import com.codecool.travelling.repository.PositionRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ public class PersonalityService {
 
     private SalesmanRepository salesmanRepository;
     private PositionRepository positionRepository;
+    private PersonalityRepository personalityRepository;
     private RoleIdeal roleIdeal;
 
     /**
@@ -265,6 +267,7 @@ public class PersonalityService {
                 .humanityFocus(Integer.parseInt(data.get("humanityFocus")))
                 .build();
         newPersonality.setSalesman(currentSalesman);
+        personalityRepository.save(newPersonality);
         salesmanRepository.save(currentSalesman);
         return newPersonality;
     }
