@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @CrossOrigin
@@ -21,5 +20,10 @@ public class PositionController {
     @PostMapping("/add-position")
     public void createNewPosition(@RequestBody Position data){
         positionService.createNewPosition(data);
+    }
+
+    @GetMapping("/search/{city}/{positionName}")
+    public List<Position> findAllPositionByCityAndPositionType(@PathVariable String city, @PathVariable String positionName){
+        return positionService.findAllPositionByCityAndPositionType(city, positionName);
     }
 }

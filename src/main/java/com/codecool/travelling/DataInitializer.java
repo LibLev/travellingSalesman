@@ -110,6 +110,24 @@ public class DataInitializer implements CommandLineRunner {
                 .build();
         companyRepository.save(KC);
 
+        Company PC = Company.builder()
+                .username("PC")
+                .nameOfCompany("PAPA Company")
+                .country("Hungary")
+                .county("Pest")
+                .postcode(1013)
+                .city("Budapest")
+                .address("Batthiány tér")
+                .houseNumber(4)
+                .phoneNumber(306723464)
+                .email("p.company2@kamu.hu")
+                .dateOfFoundation(LocalDate.parse("2000-01-01"))
+                .taxNumber("123456-3-89")
+                .roles(Collections.singleton("ROLE_ADMIN"))
+                .password(passwordEncoder.encode("password"))
+                .build();
+        companyRepository.save(PC);
+
         Position KCPosition = Position.builder()
                 .company(KC)
                 .nameOfPosition("Fegyver kereskedő")
@@ -119,6 +137,16 @@ public class DataInitializer implements CommandLineRunner {
                 .requirements(Arrays.asList("Kommunikatív", "Terhelhető", "Kreatív"))
                 .build();
         positionRepository.save(KCPosition);
+
+        Position PCPosition = Position.builder()
+                .company(KC)
+                .nameOfPosition("Fegyver kereskedő")
+                .city("Budapest")
+                .salary(500000)
+                .requiredMatchLevel(MATCH_LEVEL.RECOMMENDED)
+                .requirements(Arrays.asList("Kommunikatív", "Terhelhető", "Kreatív"))
+                .build();
+        positionRepository.save(PCPosition);
 
         Personality perfectPersonality = Personality.builder()
                 .energyLevel(7)
