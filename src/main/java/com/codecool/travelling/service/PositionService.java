@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,6 +25,7 @@ public class PositionService {
                 .city(data.getCity())
                 .salary(data.getSalary())
                 .requirements(data.getRequirements())
+                .requiredMatchLevel(data.getRequiredMatchLevel())
                 .build();
         positionRepository.save(newRegistration);
     }
@@ -32,12 +34,8 @@ public class PositionService {
         return positionRepository.findAllByCityAndByNameOfPosition(city,positionName);
     }
 
-    public void deletePosition(UUID id) {
-        positionRepository.deleteById(id);
-        if (positionRepository.findById(id).get() == null) {
-            System.out.println("DELETE WAS SUCCESSFUL");
-        }else {
-            System.out.println("POSITION IS STILL IN DB");
-        }
+    @Transactional
+    public void deletePosition(Position position) {
+        positionRepository.delete(position);
     }
 }

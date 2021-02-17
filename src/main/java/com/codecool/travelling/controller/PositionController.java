@@ -1,6 +1,7 @@
 package com.codecool.travelling.controller;
 
 import com.codecool.travelling.model.Position;
+import com.codecool.travelling.repository.PositionRepository;
 import com.codecool.travelling.service.PositionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import java.util.UUID;
 public class PositionController {
 
     private PositionService positionService;
+    private PositionRepository positionRepository;
 
     @PostMapping("/add-position")
     public void createNewPosition(@RequestBody Position data){
@@ -30,9 +32,15 @@ public class PositionController {
         return positionService.findAllPositionByCityAndPositionType(city, positionName);
     }
 
-    @DeleteMapping("/delete-position/{id}")
-    public @ResponseBody ResponseEntity<String> deletePosition(@PathVariable UUID id){
-        positionService.deletePosition(id);
+
+    @DeleteMapping("/delete-position")
+    public @ResponseBody ResponseEntity<String> deletePosition(@RequestBody Position position){
+        positionService.deletePosition(position);
         return new ResponseEntity<String>("DELETE Response", HttpStatus.OK);
+    }
+
+    @GetMapping("/get-position/{id}")
+    public Position getPosition(@PathVariable UUID id){
+        return positionRepository.findById(id).get();
     }
 }
