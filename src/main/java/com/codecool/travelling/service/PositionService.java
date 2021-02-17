@@ -1,16 +1,14 @@
 package com.codecool.travelling.service;
 
-import com.codecool.travelling.model.MATCH_LEVEL;
 import com.codecool.travelling.model.Position;
-import com.codecool.travelling.model.Salesman;
 import com.codecool.travelling.repository.PositionRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -27,8 +25,17 @@ public class PositionService {
                 .city(data.getCity())
                 .salary(data.getSalary())
                 .requirements(data.getRequirements())
+                .requiredMatchLevel(data.getRequiredMatchLevel())
                 .build();
         positionRepository.save(newRegistration);
     }
 
+    public List<Position> findAllPositionByCityAndPositionType(String city, String positionName) {
+        return positionRepository.findAllByCityAndByNameOfPosition(city,positionName);
+    }
+
+    @Transactional
+    public void deletePosition(Position position) {
+        positionRepository.delete(position);
+    }
 }
