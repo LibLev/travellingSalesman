@@ -5,6 +5,7 @@ import com.codecool.travelling.repository.PersonalityRepository;
 import com.codecool.travelling.repository.PositionRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +61,7 @@ public class PersonalityService {
      * @return int[] with the difference values
      */
 
-    private int[] calculateDifferenceForSkill(Personality salesman) {
+    public int[] calculateDifferenceForSkill(Personality salesman) {
         int[] skillDifference = new int[salesman.getSkillsItems()];
         skillDifference[0] = calculateSingleDifference(salesman.getStudyIndex(), roleIdeal.getStudyIndex());
         skillDifference[1] = calculateSingleDifference(salesman.getVocabulary(), roleIdeal.getVocabulary());
