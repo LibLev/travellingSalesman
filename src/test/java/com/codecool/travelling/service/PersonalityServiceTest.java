@@ -64,16 +64,43 @@ class PersonalityServiceTest {
 
 
     @Test
-    public void testCalculateDifferenceForSkill(){
+    public void testCalculateDifferenceForSkill_WhenThereIsNoDifferenceFromBenchmark(){
         when(personality.getStudyIndex()).thenReturn(7);
         when(personality.getVocabulary()).thenReturn(7);
         when(personality.getReadingLiteracy()).thenReturn(7);
         when(personality.getCalculation()).thenReturn(7);
         when(personality.getNumberComprehension()).thenReturn(7);
         when(personality.getSkillsItems()).thenReturn(5);
-        //personalityService = new PersonalityService(salesmanRepository,positionRepository,personalityRepository,roleIdeal);
         List<Integer> mockedRoleIdealStudyIndex = roleIdeal.getStudyIndex();
         int mockedSalesmanStudyIndex = personality.getStudyIndex();
         assertArrayEquals(new int[]{ 0,0,0,0,0 },personalityService.calculateDifferenceForSkill(personality));
     }
+
+    @Test
+    public void testCalculateDifferenceForSkill_WhenThereIsOneSmallDifferenceFromBenchmark(){
+        when(personality.getStudyIndex()).thenReturn(5);
+        when(personality.getVocabulary()).thenReturn(7);
+        when(personality.getReadingLiteracy()).thenReturn(10);
+        when(personality.getCalculation()).thenReturn(7);
+        when(personality.getNumberComprehension()).thenReturn(7);
+        when(personality.getSkillsItems()).thenReturn(5);
+        List<Integer> mockedRoleIdealStudyIndex = roleIdeal.getStudyIndex();
+        int mockedSalesmanStudyIndex = personality.getStudyIndex();
+        assertArrayEquals(new int[]{ 1,0,1,0,0 },personalityService.calculateDifferenceForSkill(personality));
+    }
+
+    @Test
+    public void testCalculateDifferenceForSkill_WhenThereIsLargeDifferenceFromBenchmark(){
+        when(personality.getStudyIndex()).thenReturn(0);
+        when(personality.getVocabulary()).thenReturn(0);
+        when(personality.getReadingLiteracy()).thenReturn(10);
+        when(personality.getCalculation()).thenReturn(7);
+        when(personality.getNumberComprehension()).thenReturn(7);
+        when(personality.getSkillsItems()).thenReturn(5);
+        List<Integer> mockedRoleIdealStudyIndex = roleIdeal.getStudyIndex();
+        int mockedSalesmanStudyIndex = personality.getStudyIndex();
+        assertArrayEquals(new int[]{ 6,6,1,0,0 },personalityService.calculateDifferenceForSkill(personality));
+    }
+
+
 }
