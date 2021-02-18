@@ -8,13 +8,10 @@ import com.codecool.travelling.repository.SalesmanRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.mockito.Mockito.when;
 
@@ -83,6 +80,10 @@ class PersonalityServiceTest {
         System.out.println("Tearing down PersonalityService test");
     }
 
+    /**
+     * Test cases for calculating the skill differences from ideal role and actual
+     * personality values for different matches
+     */
 
     @Test
     public void testCalculateDifferenceForSkill_WhenThereIsNoDifferenceFromBenchmark() {
@@ -116,6 +117,12 @@ class PersonalityServiceTest {
         assertArrayEquals(new int[]{6, 6, 1, 0, 0}, personalityService.calculateDifferenceForSkill(personality));
     }
 
+    /**
+     * Test cases for calculating the trait differences from ideal role and actual
+     * personality values for different matches
+     */
+
+
     @Test
     public void testCalculateDifferenceForTraits_WhenThereIsNoDifferenceFromBenchmark() {
         when(personality.getDecisionMaking()).thenReturn(7);
@@ -124,4 +131,14 @@ class PersonalityServiceTest {
         when(personality.getObjectiveDecisionMaking()).thenReturn(7);
         assertArrayEquals(new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0}, personalityService.calculateDifferenceForPersonalityTrait(personality));
     }
+
+    @Test
+    public void testCalculateDifferenceForTraits_WhenThereIsSmallDifferenceFromBenchmark() {
+        when(personality.getDecisionMaking()).thenReturn(9);
+        when(personality.getObjectiveDecisionMaking()).thenReturn(9);
+        when(personality.getAdaptability()).thenReturn(7);
+        when(personality.getIndependence()).thenReturn(6);
+        assertArrayEquals(new int[]{0, 0, 0, 0, 0, 2, 2, 0, 0}, personalityService.calculateDifferenceForPersonalityTrait(personality));
+    }
+
 }
