@@ -3,6 +3,9 @@
 This project is under work. This is only a back end part of the project. Deployed version can be looked at:
 https://travellingsalesman.herokuapp.com/swagger-ui.html#/
 
+And it has a frontend part you can reach it here:
+https://sad-volhard-5d83b4.netlify.app/
+
 ## Short description about the project:
 
 This project is designed specifically for salespeople and sales companies. 
