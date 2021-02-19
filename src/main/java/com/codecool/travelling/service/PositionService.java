@@ -38,4 +38,12 @@ public class PositionService {
     public void deletePosition(Position position) {
         positionRepository.delete(position);
     }
+
+    public Position getPositionById(UUID id) {
+        return positionRepository.findById(id).get();
+    }
+
+    public Position updatePositionDetails(Position position) {
+        return positionRepository.save(position);
+    }
 }

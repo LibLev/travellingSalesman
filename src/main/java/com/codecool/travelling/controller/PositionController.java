@@ -32,15 +32,19 @@ public class PositionController {
         return positionService.findAllPositionByCityAndPositionType(city, positionName);
     }
 
+    @GetMapping("/get-position/{id}")
+    public Position getPosition(@PathVariable UUID id){
+        return positionService.getPositionById(id);
+    }
+
+    @PutMapping("/update-position")
+    public Position updatePositionDetails(@RequestBody Position position){
+        return positionService.updatePositionDetails(position);
+    }
 
     @DeleteMapping("/delete-position")
     public @ResponseBody ResponseEntity<String> deletePosition(@RequestBody Position position){
         positionService.deletePosition(position);
         return new ResponseEntity<String>("DELETE Response", HttpStatus.OK);
-    }
-
-    @GetMapping("/get-position/{id}")
-    public Position getPosition(@PathVariable UUID id){
-        return positionRepository.findById(id).get();
     }
 }
