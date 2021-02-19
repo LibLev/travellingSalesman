@@ -5,10 +5,12 @@ import com.codecool.travelling.repository.CompanyRepository;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class CompanyService {
@@ -41,5 +43,18 @@ public class CompanyService {
                 .password(passwordEncoder.encode(data.get("password")))
                 .build();
         companyRepository.save(newRegistration);
+    }
+
+    public Company getCompanyById(UUID id) {
+        return companyRepository.findById(id).get();
+    }
+
+    public Company updateCompanyData(Company company) {
+        return companyRepository.save(company);
+    }
+
+    @Transactional
+    public void deleteProfile(Company company) {
+        companyRepository.delete(company);
     }
 }
