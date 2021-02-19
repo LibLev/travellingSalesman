@@ -1,7 +1,6 @@
 package com.codecool.travelling.controller;
 
 import com.codecool.travelling.model.Position;
-import com.codecool.travelling.repository.PositionRepository;
 import com.codecool.travelling.service.PositionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,6 @@ import java.util.UUID;
 public class PositionController {
 
     private PositionService positionService;
-    private PositionRepository positionRepository;
 
     @PostMapping("/add-position")
     public void createNewPosition(@RequestBody Position data){
