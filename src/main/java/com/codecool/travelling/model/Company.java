@@ -49,7 +49,7 @@ public class Company{
     @Builder.Default
     private Set<String> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @Singular
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

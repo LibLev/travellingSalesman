@@ -78,7 +78,7 @@ public class Salesman{
     private MATCH_LEVEL matchLevel;
 
 
-    @OneToOne(mappedBy = "salesman", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "salesman", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
