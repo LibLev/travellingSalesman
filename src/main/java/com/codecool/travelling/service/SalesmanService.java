@@ -5,6 +5,7 @@ import com.codecool.travelling.repository.SalesmanRepository;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -51,5 +52,14 @@ public class SalesmanService {
 
     public Salesman getSalesman(UUID id) {
         return salesmanRepository.findById(id).get();
+    }
+
+    public Salesman updateProfileData(Salesman salesman) {
+        return salesmanRepository.save(salesman);
+    }
+
+    @Transactional
+    public void deleteProfile(Salesman salesman) {
+        salesmanRepository.delete(salesman);
     }
 }

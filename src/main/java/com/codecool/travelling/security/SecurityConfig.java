@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/**").permitAll() // allowed by anyone
                 .antMatchers("/registration/**").permitAll() // allowed by anyone
                 .antMatchers("/position/**").permitAll() // allowed by anyone
+                .antMatchers("/company/**").permitAll() // allowed by anyone
                 //.antMatchers("/position/add-position").hasRole("COMPANY") // allowed if signed in with COMPANY role
                 .antMatchers("/position/delete-position/**").permitAll() // allowed if signed in with COMPANY role
                 .antMatchers("/position/get-position/**").permitAll() // allowed if signed in with COMPANY role
