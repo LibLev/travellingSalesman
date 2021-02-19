@@ -19,6 +19,7 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @ToString.Exclude
     @ManyToOne(cascade = CascadeType.MERGE)
     private Company company;
 
