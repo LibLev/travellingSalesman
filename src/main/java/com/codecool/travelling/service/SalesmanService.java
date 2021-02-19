@@ -60,7 +60,6 @@ public class SalesmanService {
 
     @Transactional
     public void deleteProfile(Salesman salesman) {
-        System.out.println("Delete this user " + salesman.getUsername());
         salesmanRepository.delete(salesman);
     }
 }

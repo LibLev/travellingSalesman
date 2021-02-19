@@ -30,7 +30,6 @@ public class SalesmanController {
     @DeleteMapping("/delete-profile")
     public @ResponseBody ResponseEntity<String> deleteSalesmanProfile(@RequestBody Salesman salesman){
         salesmanService.deleteProfile(salesman);
-        System.out.println(salesman.getUsername());
         return new ResponseEntity<String>("DELETE Response", HttpStatus.OK);
     }
 }
