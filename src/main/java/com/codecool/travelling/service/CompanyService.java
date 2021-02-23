@@ -2,6 +2,7 @@ package com.codecool.travelling.service;
 
 import com.codecool.travelling.model.Company;
 import com.codecool.travelling.repository.CompanyRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,6 @@ import java.util.UUID;
 public class CompanyService {
 
     private PasswordEncoder passwordEncoder;
-
     private CompanyRepository companyRepository;
 
     public CompanyService(CompanyRepository companyRepository) {
