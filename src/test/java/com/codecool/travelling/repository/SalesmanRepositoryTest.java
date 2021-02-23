@@ -1,6 +1,6 @@
 package com.codecool.travelling.repository;
 
-import com.codecool.travelling.model.Company;
+import com.codecool.travelling.model.Salesman;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,33 +20,37 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-public class CompanyRepositoryTest {
+public class SalesmanRepositoryTest {
 
     @Autowired
-    CompanyRepository companyRepository;
+    SalesmanRepository salesmanRepository;
 
     @Autowired
     TestEntityManager entityManager;
 
     @Test
     public void saveSimpleOne(){
-        Company newCompany = Company.builder()
-                .username("CC")
+        Salesman newSalesman = Salesman.builder()
+                .username("Pisti")
+                .firstname("István")
+                .middleName("János")
+                .lastname("Kovács")
+                .password("password")
                 .city("Budapest")
-                .dateOfFoundation(LocalDate.parse("2015-01-01"))
-                .taxNumber("123456-7-89")
-                .phoneNumber(301234567)
-                .address("Nagymező utca")
+                .address("Batthiány tér")
                 .houseNumber(1)
-                .email("codecool@codecool.hu")
-                .nameOfCompany("Codecool Kft.")
+                .drivingLicense(true)
                 .country("Hungary")
                 .county("Pest")
-                .password("password")
+                .nationality("Hungarian")
+                .email("pista@kamu.hu")
+                .birthDate(LocalDate.parse("2000-01-01"))
+                .phoneNumber(301234567)
+                .gender("male")
                 .build();
-        companyRepository.save(newCompany);
-        List<Company> companies = companyRepository.findAll();
-        assertThat(companies).hasSize(1);
+        salesmanRepository.save(newSalesman);
+        List<Salesman> salesmen = salesmanRepository.findAll();
+        assertThat(salesmen).hasSize(1);
     }
 
 }
