@@ -29,8 +29,7 @@ public class Company{
     @NotEmpty
     private String password;
 
-    @NotEmpty
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     @Email
     private String email;
 
