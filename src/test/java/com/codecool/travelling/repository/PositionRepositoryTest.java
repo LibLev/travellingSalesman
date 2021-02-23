@@ -40,7 +40,6 @@ public class PositionRepositoryTest {
                 .requirements(Arrays.asList("good communication skills", "fluent english", "problem solving", "agile thinking"))
                 .requiredMatchLevel(MATCH_LEVEL.PERFECT)
                 .build();
-        newPosition.setCompany(Mockito.any(Company.class));
         positionRepository.save(newPosition);
         List<Position> positions = positionRepository.findAll();
         assertThat(positions).hasSize(1);

@@ -53,7 +53,6 @@ public class PersonalityRepositoryTest {
                 .entrepreneurship(1)
                 .humanityFocus(3)
                 .build();
-        newPersonality.setSalesman(Mockito.any(Salesman.class));
         personalityRepository.save(newPersonality);
         List<Personality> personalities = personalityRepository.findAll();
         assertThat(personalities).hasSize(1);

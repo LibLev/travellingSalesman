@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class PersonalityServiceTest {
+public class PersonalityServiceTest {
 
     private static Personality personality = Mockito.mock(Personality.class);
     private static RoleIdeal roleIdeal = Mockito.mock(RoleIdeal.class);
