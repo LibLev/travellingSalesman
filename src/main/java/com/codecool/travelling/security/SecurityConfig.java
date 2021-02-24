@@ -48,22 +48,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**").permitAll() // for testing
                 .antMatchers("/auth/**").permitAll() // allowed by anyone
                 .antMatchers("/registration/**").permitAll() // allowed by anyone
-                .antMatchers("/position/**").permitAll() // allowed by anyone
-                .antMatchers("/company/**").permitAll() // allowed by anyone
-                //.antMatchers("/position/add-position").hasRole("COMPANY") // allowed if signed in with COMPANY role
-                .antMatchers("/position/delete-position/**").permitAll() // allowed if signed in with COMPANY role
-                .antMatchers("/position/get-position/**").permitAll() // allowed if signed in with COMPANY role
-                //.antMatchers("/position/delete-position/**").hasRole("COMPANY") // allowed if signed in with COMPANY role
-                .antMatchers("/position/add-position").permitAll() // allowed if signed in with COMPANY role
-                //.antMatchers("/position/search/**").hasRole("SALESMAN") // allowed if signed in with COMPANY role
-                .antMatchers("/position/search/**").permitAll() // allowed if signed in with COMPANY role
-                .antMatchers("/salesman/**").permitAll() //allowed by anyone
-                //.antMatchers("/personality/match-person-to-role/**").hasRole("SALESMAN") //allowed if signed in as SALESMAN
-                .antMatchers("/personality/match-person-to-role/**").permitAll() //allowed if signed in as SALESMAN
-                //.antMatchers("/personality/get-all-matching-position/**").hasRole("SALESMAN") //allowed if signed in as SALESMAN
-                .antMatchers("/personality/get-all-matching-position/**").permitAll() //allowed if signed in as SALESMAN
-                .antMatchers("/personality/add-personality-to-salesman").permitAll()
-                //.antMatchers("/personality/add-personality-to-salesman").hasRole("SALESMAN)
+                .antMatchers("/position/add-position").hasRole("COMPANY")// allowed if signed in as Company
+                .antMatchers("/position/update-position/*").hasRole("COMPANY")// allowed if signed in as Company
+                .antMatchers("/position/delete-position/*").hasRole("COMPANY")// allowed if signed in as Company
+                .antMatchers("/position/get-position/*").hasAnyRole("COMPANY", "SALESMAN")// allowed if signed in as Company or Salesman
+                .antMatchers("/position/search/*").hasRole("SALESMAN")// allowed if signed in as Salesman
+                .antMatchers("/company/get-company/**").hasAnyRole("COMPANY", "SALESMAN") // allowed by anyone
+                .antMatchers("/company/profile-update").hasRole("COMPANY") // allowed if signed in as Company
+                .antMatchers("/company/delete-profile").hasRole("COMPANY") // allowed if signed in as Company
+                .antMatchers("/salesman/get-salesman/**").hasAnyRole("COMPANY", "SALESMAN") // allowed if signed in as Company or Salesman
+                .antMatchers("/salesman/profile-update").hasRole("SALESMAN") // allowed if signed in as Salesman
+                .antMatchers("/salesman/delete-profile").hasRole("SALESMAN") // allowed if signed in as Salesman
+                .antMatchers("/personality/match-person-to-role/**").permitAll() //allowed by anyone
+                .antMatchers("/personality/get-all-matching-position/**").permitAll() //allowed by anyone
+                .antMatchers("/personality/add-personality-to-salesman").hasRole("SALESMAN") // allowed if signed in as Salesman
                 .anyRequest().denyAll() // anything else is denied; this is a safeguard in case we left something out.
                 .and()
                 // Here we define our custom filter that uses the JWT tokens for authentication.

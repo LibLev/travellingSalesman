@@ -44,8 +44,7 @@ public class SalesmanService {
                 .houseNumber(Integer.parseInt(data.get("houseNumber")))
                 .drivingLicense(Boolean.parseBoolean(data.get("drivingLicense")))
                 .password(passwordEncoder.encode(data.get("password")))
-                .roles(Collections.singleton( "ROLE_USER"))
-                //.roles(Collections.singleton( "SALESMAN"))
+                .roles(Collections.singleton( "ROLE_SALESMAN"))
                 .build();
         salesmanRepository.save(newRegistration);
     }

@@ -17,7 +17,7 @@ public class CompanyController {
 
     private CompanyService companyService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-company/{id}")
     public Company getCompanyDataById(@PathVariable UUID id){
         return companyService.getCompanyById(id);
     }

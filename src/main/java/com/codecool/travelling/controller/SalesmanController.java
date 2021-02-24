@@ -17,7 +17,7 @@ public class SalesmanController {
 
     private SalesmanService salesmanService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-salesman/{id}")
     public Salesman getSalesmanById(@PathVariable UUID id){
         return salesmanService.getSalesmanById(id);
     }
