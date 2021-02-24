@@ -54,10 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/position/get-position/*").hasAnyRole("COMPANY", "SALESMAN")// allowed if signed in as Company or Salesman
                 .antMatchers("/position/search/*").hasRole("SALESMAN")// allowed if signed in as Salesman
                 .antMatchers("/company/get-company/**").hasAnyRole("COMPANY", "SALESMAN") // allowed by anyone
-                .antMatchers("/company/profile-update").hasRole("COMPANY") // allowed if signed in as Company
+                .antMatchers("/company/update-profile").hasRole("COMPANY") // allowed if signed in as Company
                 .antMatchers("/company/delete-profile").hasRole("COMPANY") // allowed if signed in as Company
                 .antMatchers("/salesman/get-salesman/**").hasAnyRole("COMPANY", "SALESMAN") // allowed if signed in as Company or Salesman
-                .antMatchers("/salesman/profile-update").hasRole("SALESMAN") // allowed if signed in as Salesman
+                .antMatchers("/salesman/update-profile").hasRole("SALESMAN") // allowed if signed in as Salesman
                 .antMatchers("/salesman/delete-profile").hasRole("SALESMAN") // allowed if signed in as Salesman
                 .antMatchers("/personality/match-person-to-role/**").permitAll() //allowed by anyone
                 .antMatchers("/personality/get-all-matching-position/**").permitAll() //allowed by anyone

@@ -22,7 +22,7 @@ public class CompanyController {
         return companyService.getCompanyById(id);
     }
 
-    @PutMapping("/profile-update")
+    @PutMapping("/update-profile")
     public Company updateProfileData(@RequestBody Company company){
         return companyService.updateCompanyData(company);
     }

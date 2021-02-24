@@ -22,8 +22,8 @@ public class SalesmanController {
         return salesmanService.getSalesmanById(id);
     }
 
-    @PutMapping("/profile-update")
-    public Salesman updateProfileDate(@RequestBody Salesman salesman){
+    @PutMapping("/update-profile")
+    public Salesman updateProfileData(@RequestBody Salesman salesman){
         return salesmanService.updateProfileData(salesman);
     }
 
