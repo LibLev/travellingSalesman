@@ -137,7 +137,7 @@ public class PersonalityService {
      * @return
      */
 
-    private MATCH_LEVEL isSkillRecommendedFocus(Personality salesPersonality) {
+    public MATCH_LEVEL isSkillRecommendedFocus(Personality salesPersonality) {
 
         if (salesPersonality.getEntrepreneurship() == 1 &&
                 salesPersonality.getCreativity() == 2 &&

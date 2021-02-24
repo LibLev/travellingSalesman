@@ -1,7 +1,9 @@
 package com.codecool.travelling.service;
 
+import com.codecool.travelling.model.MATCH_LEVEL;
 import com.codecool.travelling.model.Personality;
 import com.codecool.travelling.model.RoleIdeal;
+import com.codecool.travelling.model.Salesman;
 import com.codecool.travelling.repository.PersonalityRepository;
 import com.codecool.travelling.repository.PositionRepository;
 import com.codecool.travelling.repository.SalesmanRepository;
@@ -139,6 +141,46 @@ class PersonalityServiceTest {
         when(personality.getAdaptability()).thenReturn(7);
         when(personality.getIndependence()).thenReturn(6);
         assertArrayEquals(new int[]{0, 0, 0, 0, 0, 2, 2, 0, 0}, personalityService.calculateDifferenceForPersonalityTrait(personality));
+    }
+
+    @Test
+    public void testIsSkillRecommendedFocus_WhenPerfectOrder(){
+        when(personality.getEntrepreneurship()).thenReturn(1);
+        when(personality.getCreativity()).thenReturn(2);
+        when(personality.getHumanityFocus()).thenReturn(3);
+        assertEquals(MATCH_LEVEL.PERFECT, personalityService.isSkillRecommendedFocus(personality));
+    }
+
+    @Test
+    public void testIsSkillRecommendedFocus_WhenRecommendedOrder_V1(){
+        when(personality.getEntrepreneurship()).thenReturn(3);
+        when(personality.getCreativity()).thenReturn(5);
+        when(personality.getHumanityFocus()).thenReturn(3);
+        assertEquals(MATCH_LEVEL.RECOMMENDED, personalityService.isSkillRecommendedFocus(personality));
+    }
+
+    @Test
+    public void testIsSkillRecommendedFocus_WhenRecommendedOrder_V2(){
+        when(personality.getEntrepreneurship()).thenReturn(2);
+        when(personality.getCreativity()).thenReturn(4);
+        when(personality.getHumanityFocus()).thenReturn(1);
+        assertEquals(MATCH_LEVEL.RECOMMENDED, personalityService.isSkillRecommendedFocus(personality));
+    }
+
+    @Test
+    public void testIsSkillRecommendedFocus_WhenAcceptableOrder(){
+        when(personality.getEntrepreneurship()).thenReturn(1);
+        when(personality.getCreativity()).thenReturn(4);
+        when(personality.getHumanityFocus()).thenReturn(5);
+        assertEquals(MATCH_LEVEL.ACCEPTABLE, personalityService.isSkillRecommendedFocus(personality));
+    }
+
+    @Test
+    public void testIsSkillRecommendedFocus_WhenNotRecommendedOrder(){
+        when(personality.getEntrepreneurship()).thenReturn(2);
+        when(personality.getCreativity()).thenReturn(1);
+        when(personality.getHumanityFocus()).thenReturn(5);
+        assertEquals(MATCH_LEVEL.NOT_RECOMMENDED, personalityService.isSkillRecommendedFocus(personality));
     }
 
 }
