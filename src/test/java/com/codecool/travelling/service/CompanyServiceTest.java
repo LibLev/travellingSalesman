@@ -2,27 +2,19 @@ package com.codecool.travelling.service;
 
 import com.codecool.travelling.model.Company;
 import com.codecool.travelling.repository.CompanyRepository;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.mockito.Mockito;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
-import static org.junit.Assert.*;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class CompanyServiceTest {
 
     private CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
-    private static Company company = Mockito.mock(Company.class);
+    //private static Company company = Mockito.mock(Company.class);
 
     private CompanyService companyService = new CompanyService(companyRepository);
 

@@ -50,7 +50,7 @@ public class SalesmanService {
         salesmanRepository.save(newRegistration);
     }
 
-    public Salesman getSalesman(UUID id) {
+    public Salesman getSalesmanById(UUID id) {
         return salesmanRepository.findById(id).get();
     }
 

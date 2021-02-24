@@ -19,7 +19,7 @@ public class SalesmanController {
 
     @GetMapping("/{id}")
     public Salesman getSalesmanById(@PathVariable UUID id){
-        return salesmanService.getSalesman(id);
+        return salesmanService.getSalesmanById(id);
     }
 
     @PutMapping("/profile-update")
