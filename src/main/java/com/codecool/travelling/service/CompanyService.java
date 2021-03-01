@@ -16,7 +16,6 @@ import java.util.UUID;
 public class CompanyService {
 
     private PasswordEncoder passwordEncoder;
-
     private CompanyRepository companyRepository;
 
     public CompanyService(CompanyRepository companyRepository) {
@@ -38,8 +37,7 @@ public class CompanyService {
                 .email(data.get("email"))
                 .dateOfFoundation(LocalDate.parse(data.get("dateOfFoundation")))
                 .taxNumber(data.get("taxNumber"))
-                .roles(Collections.singleton("ROLE_ADMIN"))
-                //.roles(Collections.singleton("COMPANY"))
+                .roles(Collections.singleton("ROLE_COMPANY"))
                 .password(passwordEncoder.encode(data.get("password")))
                 .build();
         companyRepository.save(newRegistration);

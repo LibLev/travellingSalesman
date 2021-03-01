@@ -17,13 +17,13 @@ public class SalesmanController {
 
     private SalesmanService salesmanService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-salesman/{id}")
     public Salesman getSalesmanById(@PathVariable UUID id){
-        return salesmanService.getSalesman(id);
+        return salesmanService.getSalesmanById(id);
     }
 
-    @PutMapping("/profile-update")
-    public Salesman updateProfileDate(@RequestBody Salesman salesman){
+    @PutMapping("/update-profile")
+    public Salesman updateProfileData(@RequestBody Salesman salesman){
         return salesmanService.updateProfileData(salesman);
     }
 
