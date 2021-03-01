@@ -2,7 +2,6 @@ package com.codecool.travelling.service;
 
 import com.codecool.travelling.model.Company;
 import com.codecool.travelling.repository.CompanyRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
