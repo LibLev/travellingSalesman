@@ -269,7 +269,6 @@ public class PersonalityService {
                 .build();
         newPersonality.setSalesman(currentSalesman);
         personalityRepository.save(newPersonality);
-        salesmanRepository.save(currentSalesman);
         return newPersonality;
     }
 
