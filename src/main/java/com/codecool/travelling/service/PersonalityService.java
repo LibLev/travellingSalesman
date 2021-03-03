@@ -272,6 +272,10 @@ public class PersonalityService {
         salesmanRepository.save(currentSalesman);
         return newPersonality;
     }
+
+    public Personality getPersonalityBySalesmanId(Salesman salesman) {
+        return personalityRepository.findBySalesman(salesman).get();
+    }
 }
 
 
