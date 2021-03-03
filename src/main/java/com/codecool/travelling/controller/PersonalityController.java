@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -32,14 +31,19 @@ public class PersonalityController {
         return personalityService.setPersonalityToSalesman(data);
     }
 
+    @GetMapping("/get-personality-by-salesman")
+    public Personality getPersonalityBySalesmanId(@RequestBody Salesman salesman){
+        return personalityService.getPersonalityBySalesmanId(salesman);
+    }
+
     @GetMapping("/match-person-to-role/{id}")
     public MATCH_LEVEL matchPersonToRole (@PathVariable UUID id){
         return personalityService.matchPersonToRole(salesmanRepository.findById(id).get());
     }
 
-    @GetMapping("/get-all-matching-position/{id}")
-    public List<Position> getAllMatchingPosition(@PathVariable UUID id){
-        return personalityService.matchPersonToPositionsBasedOnPersonality(salesmanRepository.findById(id).get());
+    @GetMapping("/get-all-matching-position/{salesmanId}")
+    public List<Position> getAllMatchingPosition(@PathVariable UUID salesmanId){
+        return personalityService.matchPersonToPositionsBasedOnPersonality(salesmanRepository.findById(salesmanId).get());
     }
 
 }

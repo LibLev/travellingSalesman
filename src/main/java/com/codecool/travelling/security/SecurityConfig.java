@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/salesman/update-profile").hasRole("SALESMAN") // allowed if signed in as Salesman
                 .antMatchers("/salesman/delete-profile").hasRole("SALESMAN") // allowed if signed in as Salesman
                 .antMatchers("/personality/match-person-to-role/**").permitAll() //allowed by anyone
+                .antMatchers("/personality/get-personality-by-salesman").hasRole("SALESMAN") //allowed by anyone
                 .antMatchers("/personality/get-all-matching-position/**").permitAll() //allowed by anyone
                 .antMatchers("/personality/add-personality-to-salesman").hasRole("SALESMAN") // allowed if signed in as Salesman
                 .anyRequest().denyAll() // anything else is denied; this is a safeguard in case we left something out.
