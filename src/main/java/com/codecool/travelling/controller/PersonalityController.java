@@ -36,9 +36,9 @@ public class PersonalityController {
         return personalityService.getPersonalityBySalesmanId(salesman);
     }
 
-    @GetMapping("/match-person-to-role/{id}")
-    public MATCH_LEVEL matchPersonToRole (@PathVariable UUID id){
-        return personalityService.matchPersonToRole(salesmanRepository.findById(id).get());
+    @GetMapping("/match-person-to-role/{salesmanId}")
+    public MATCH_LEVEL matchPersonToRole (@PathVariable UUID salesmanId){
+        return personalityService.matchPersonToRole(salesmanRepository.findById(salesmanId).get());
     }
 
     @GetMapping("/get-all-matching-position/{salesmanId}")
